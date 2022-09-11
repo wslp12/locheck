@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import './index.css';
 import Auth from './components/Auth';
 import Home from './components/Home';
 import Login from './components/Login';
+import './index.css';
 
 const id = 'root';
 const rootElem = document.getElementById(id);
