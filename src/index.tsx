@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import App from './App';
-import Hello from './components/Hello';
-import Image from './components/Image';
-import Item from './components/Item';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import './index.css';
+import Auth from './components/Auth';
+import Home from './components/Home';
+import Login from './components/Login';
 
 const id = 'root';
 const rootElem = document.getElementById(id);
@@ -14,17 +14,16 @@ if (rootElem) {
   const root = ReactDOM.createRoot(rootElem);
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route path="main/:1" element={<Outlet />}>
-              <Route path="item/:itemParam" element={<Item />} />
-              <Route path="image" element={<Image />} />
+      <RecoilRoot>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Auth />}>
+              <Route path="home" element={<Home />} />
+              <Route path="login" element={<Login />} />
             </Route>
-            <Route element={<Hello />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </React.StrictMode>,
   );
 } else {
