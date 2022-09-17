@@ -8,7 +8,7 @@ function LoginP(props: LoginPP) {
       <input
         value={idValue}
         type="text"
-        placeholder="아이디를 입력 해주세요"
+        placeholder="캐릭터명을 입력 해주세요"
         style={{
           border: '1px solid black',
           borderRadius: '3px',

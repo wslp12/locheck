@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { authState } from '../../recoil/auth';
 
 function Auth() {
   const navigate = useNavigate();
-  const [auth] = useRecoilState(authState);
-
-  console.log(auth);
+  const auth = useRecoilValue(authState);
 
   useEffect(() => {
-    if (auth === '' || auth === undefined || auth === 'null') {
+    if (auth === undefined || auth === null || auth.length === 0) {
+      console.log(1);
       navigate('login');
+    } else {
+      navigate('home');
     }
   }, [auth]);
 

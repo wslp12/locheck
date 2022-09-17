@@ -1,8 +1,10 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      R_MODE: 'development' | 'production';
-      R_RUN_MODE: 'development' | 'production' | 'local';
+      locheck: {
+        R_MODE: 'development' | 'production';
+        R_RUN_MODE: 'development' | 'production' | 'local';
+      };
     }
   }
 }
