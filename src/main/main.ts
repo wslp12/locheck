@@ -34,7 +34,7 @@ function main() {
   const window = new BrowserWindow({
     width: 1280,
     height: 800,
-    resizable: false,
+    resizable: true,
     webPreferences: {
       devTools: true,
       nodeIntegration: true,
@@ -48,8 +48,8 @@ function main() {
   Menu.setApplicationMenu(menu);
 
   if (process.env.locheck.R_RUN_MODE === 'local') {
-    window.webContents.openDevTools();
     window.loadURL('http://localhost:9000');
+    window.webContents.openDevTools();
   } else {
     const mainIndexHtml = path.join(__dirname, '../dist-web/index.html');
     window.loadFile(mainIndexHtml);
@@ -73,12 +73,15 @@ function main() {
   });
 
   setInterval(() => {
+    /**
+     * 체크 목록을 새로 갱신 합니다.
+     */
     window.webContents.send('refresh');
   }, 60000);
 
-  setInterval(() => {
-    autoUpdater.checkForUpdates();
-  }, 600000);
+  // setInterval(() => {
+  //   autoUpdater.checkForUpdates();
+  // }, 600000);
   // }, 4000);
 }
 
@@ -109,12 +112,12 @@ autoUpdater.on('update-available', () => {
     });
 });
 
-autoUpdater.on('update-not-available', () => {
-  dialog.showMessageBox({
-    title: 'No Updates',
-    message: 'Current version is up-to-date.',
-  });
-});
+// autoUpdater.on('update-not-available', () => {
+//   dialog.showMessageBox({
+//     title: 'No Updates',
+//     message: 'Current version is up-to-date.',
+//   });
+// });
 
 autoUpdater.on('download-progress', (progressObj) => {
   let logMsg = `Download speed: ${progressObj.bytesPerSecond}`;

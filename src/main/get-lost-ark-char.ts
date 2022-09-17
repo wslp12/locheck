@@ -117,6 +117,7 @@ function getCharInfo(char: Char): Promise<Auth> {
         profileSrc,
         jobIcon,
         job,
+        display: true,
       });
     });
   });

@@ -25,6 +25,7 @@ type Auth = {
   level: number;
   itemLevel: number;
   name: string;
+  display: boolean;
 };
 
 const authState = atom({

@@ -36,12 +36,79 @@ class MenuCtrl {
             },
           },
           {
+            label: '강제 새로고침(계정 리스트)',
+            click: (mi, bw) => {
+              /**
+               * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
+               */
+              if (bw) {
+                bw.webContents.send('logout');
+              }
+            },
+          },
+          {
+            label: '강제 새로고침(숙제 리스트)',
+            click: (mi, bw) => {
+              /**
+               * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
+               */
+              if (bw) {
+                bw.webContents.send('homework');
+              }
+            },
+          },
+          {
             label: '종료',
             accelerator: 'CmdOrCtrl+Q',
             click: () => {
               app.exit(0);
             },
           },
+        ],
+      },
+      {
+        label: '캐릭터 설정 보기',
+        submenu: [
+          {
+            label: '숨김처리 관리',
+            click: (mi, bw) => {
+              if (bw) {
+                /**
+                 * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
+                 */
+                bw.webContents.send('moveHide');
+              }
+            },
+          },
+          {
+            label: '캐릭터별 레이드 관리',
+            click: (mi, bw) => {
+              if (bw) {
+                /**
+                 * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
+                 */
+                bw.webContents.send('moveRade');
+              }
+            },
+          },
+        ],
+      },
+
+      {
+        label: '이동',
+        submenu: [
+          {
+            label: '대시보드 이동',
+            click: (mi, bw) => {
+              if (bw) {
+                /**
+                 * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
+                 */
+                bw.webContents.send('moveHome');
+              }
+            },
+          },
+          { type: 'separator' },
         ],
       },
       {

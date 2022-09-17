@@ -7,6 +7,8 @@ import Auth from './components/Auth';
 import Home from './components/Home';
 import Login from './components/Login';
 import './index.css';
+import CharSetting from './CharSetting/CharSetting';
+import CharRadeSetting from './CharRadeSetting/CharRadeSetting';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +42,9 @@ if (rootElem) {
             <Route path="/" element={<Auth />}>
               <Route path="home" element={<Home />} />
               <Route path="login" element={<Login />} />
+              <Route path="char-setting" element={<CharSetting />} />
+              <Route path="char-rade-setting" element={<CharRadeSetting />} />
+              <Route path="/" element={<Home />} />
             </Route>
           </Routes>
         </Router>
