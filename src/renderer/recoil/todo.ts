@@ -43,7 +43,6 @@ export type Todo = {
     | '가디언'
     | '에포나'
     | '아르고스'
-    | '아르고스2'
     | '발탄[노말]'
     | '발탄[하드]'
     | '비아키스[노말]'
@@ -66,6 +65,7 @@ export type Todo = {
   doneTime: string;
   display: boolean;
   srcName: string;
+  gold: number;
 };
 
 type TodoId = string;
@@ -78,6 +78,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: chaosd,
+    gold: 0,
   },
   {
     done: false,
@@ -86,6 +87,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: gad,
+    gold: 0,
   },
   {
     done: false,
@@ -94,6 +96,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: epona,
+    gold: 0,
   },
   {
     done: false,
@@ -102,6 +105,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: argo,
+    gold: 1600,
   },
   {
     done: false,
@@ -110,6 +114,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: val,
+    gold: 2500,
   },
   {
     done: false,
@@ -118,6 +123,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: via,
+    gold: 2500,
   },
   {
     done: false,
@@ -126,6 +132,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: val2,
+    gold: 4500,
   },
   {
     done: false,
@@ -134,6 +141,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: via2,
+    gold: 4500,
   },
   {
     done: false,
@@ -142,6 +150,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: kuku,
+    gold: 4500,
   },
   {
     done: false,
@@ -150,6 +159,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: kayang,
+    gold: 0,
   },
   {
     done: false,
@@ -158,6 +168,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: kayang,
+    gold: 0,
   },
   {
     done: false,
@@ -166,6 +177,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: kayang,
+    gold: 0,
   },
   {
     done: false,
@@ -174,6 +186,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: kayang,
+    gold: 0,
   },
   {
     done: false,
@@ -182,6 +195,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: av12,
+    gold: 5000,
   },
   {
     done: false,
@@ -190,6 +204,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: av34,
+    gold: 1500,
   },
   {
     done: false,
@@ -198,6 +213,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: avh12,
+    gold: 5500,
   },
   {
     done: false,
@@ -206,6 +222,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: avh34,
+    gold: 2000,
   },
   {
     done: false,
@@ -214,6 +231,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: av56,
+    gold: 2500,
   },
   {
     done: false,
@@ -222,6 +240,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: avh56,
+    gold: 3000,
   },
   {
     done: false,
@@ -230,6 +249,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: '',
+    gold: 5500,
   },
   {
     done: false,
@@ -238,6 +258,7 @@ const TODO_LIST: Todo[] = [
     doneTime: '',
     display: true,
     srcName: '',
+    gold: 6500,
   },
 ];
 

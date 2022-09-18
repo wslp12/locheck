@@ -93,84 +93,6 @@ function Home() {
         }),
       );
     });
-
-    setTodoList((ps) =>
-      produce(ps, (ds) => {
-        ds.map((todoListItem) => {
-          todoListItem.list.forEach((todo) => {
-            if (dayjs().hour() < 6) {
-              return;
-            }
-            if (!todo.done) return;
-
-            if (
-              todo.name === '가디언' ||
-              todo.name === '카오스던전' ||
-              todo.name === '에포나'
-            ) {
-              if (dayjs(todo.doneTime).isToday()) {
-                return;
-              }
-              todo.done = false;
-            } else {
-              const oldDay = dayjs(todo.doneTime);
-
-              const diff = dayjs().diff(oldDay, 'days');
-              for (let index = 1; index <= diff; index += 1) {
-                if (oldDay.add(index, 'day').day() === 3) {
-                  todo.done = false;
-                  break;
-                }
-              }
-            }
-          });
-        });
-      }),
-    );
-
-    if ((globalThis as any).ipc) {
-      (globalThis as any).ipc.on('refresh', () => {
-        setTodoList((ps) =>
-          produce(ps, (ds) => {
-            ds.map((todoListItem) => {
-              todoListItem.list.forEach((todo) => {
-                if (dayjs().hour() < 6) {
-                  return;
-                }
-                if (!todo.done) return;
-                console.log(
-                  dayjs().hour(),
-                  todo.done,
-                  todo.name,
-                  todoListItem.id,
-                  todo.doneTime,
-                );
-                if (
-                  todo.name === '가디언' ||
-                  todo.name === '카오스던전' ||
-                  todo.name === '에포나'
-                ) {
-                  if (dayjs(todo.doneTime).isToday()) {
-                    return;
-                  }
-                  todo.done = false;
-                } else {
-                  const oldDay = dayjs(todo.doneTime);
-
-                  const diff = dayjs().diff(oldDay, 'days');
-                  for (let index = 1; index <= diff; index += 1) {
-                    if (oldDay.add(index, 'day').day() === 3) {
-                      todo.done = false;
-                      break;
-                    }
-                  }
-                }
-              });
-            });
-          }),
-        );
-      });
-    }
   }, []);
 
   const handleDisplay = () => {
@@ -188,13 +110,15 @@ function Home() {
 
   return (
     <>
-      {/* <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
+      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Tabs value={0} centered>
+          <Tab label="전체" />
+          <Tab label="일일 퀘스트" />
+          <Tab label="어비스" />
+          <Tab label="군단장" />
+          <Tab label="계정별 퀘스트" />
         </Tabs>
-      </Box> */}
+      </Box>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {userInfo

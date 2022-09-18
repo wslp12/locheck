@@ -5,7 +5,7 @@ import produce from 'immer';
 import React from 'react';
 import { Switch } from '@mui/material';
 import { useRecoilState } from 'recoil';
-import { authState } from '../recoil/auth';
+import { authState } from '../../recoil/auth';
 
 function CharSetting() {
   const [charInfo, setCharInfo] = useRecoilState(authState);

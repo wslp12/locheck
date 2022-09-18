@@ -19,7 +19,7 @@ function LoginC() {
       (globalThis as any).ipc.sendSync('login', idValue),
     );
 
-    navigate('/home');
+    navigate('/dashboard');
     setAuth(result);
   };
 

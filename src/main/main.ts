@@ -78,11 +78,6 @@ function main() {
      */
     window.webContents.send('refresh');
   }, 60000);
-
-  // setInterval(() => {
-  //   autoUpdater.checkForUpdates();
-  // }, 600000);
-  // }, 4000);
 }
 
 app.whenReady().then(() => {

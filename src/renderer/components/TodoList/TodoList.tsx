@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-else-return */
@@ -5,23 +6,46 @@
 /* eslint-disable function-paren-newline */
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { produce } from 'immer';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Auth } from '../../recoil/auth';
-import { Todo, TodoId, todoItem, todoState } from '../../recoil/todo';
+import { Todo, TodoId, todoState } from '../../recoil/todo';
 import donePng from '../../assets/done.png';
+
+const GetGold = (props: { todo: Todo; user: Auth }) => {
+  const { user, todo } = props;
+
+  if (todo.gold <= 0) {
+    return <div />;
+  }
+
+  if (todo.done) {
+    return <div />;
+  }
+
+  if (todo.name === '아르고스' && user.itemLevel >= 1475) {
+    return <div />;
+  }
+
+  return (
+    <div>
+      <span style={{ color: 'gold' }}>
+        <AttachMoneyIcon />
+        {todo.gold}
+      </span>
+    </div>
+  );
+};
 
 function TodoList(props: { user: Auth }) {
   const { user } = props;
 
   const [todoList, setTodoList] = useRecoilState(todoState);
 
-  // console.log(user.name);
-
   const handleClickCheckTodo = (id: TodoId, todoName: Todo['name']) => {
-    console.log('todoName', id, todoName);
     setTodoList((ps) =>
       produce(ps, (ds) => {
         const todoListIdx = ds.findIndex(
@@ -70,6 +94,7 @@ function TodoList(props: { user: Auth }) {
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  position: 'relative',
                 }}
                 onClick={() =>
                   handleClickCheckTodo(currentTodoList.id, todo.name)
@@ -85,6 +110,7 @@ function TodoList(props: { user: Auth }) {
                   }}
                 />
                 <img src={todo.srcName} alt={todo.name} width={100} />
+                <GetGold todo={todo} user={user} />
               </div>
             );
           } else {

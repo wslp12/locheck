@@ -3,8 +3,8 @@ import React from 'react';
 import produce from 'immer';
 import { Switch } from '@mui/material';
 import { useRecoilState } from 'recoil';
-import { authState } from '../recoil/auth';
-import { TodoId, todoState, TODO_LIST } from '../recoil/todo';
+import { authState } from '../../recoil/auth';
+import { TodoId, todoState, TODO_LIST } from '../../recoil/todo';
 
 function CharRadeSetting() {
   const [charInfo, setCharInfo] = useRecoilState(authState);

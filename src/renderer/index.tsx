@@ -4,11 +4,12 @@ import { BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Auth from './components/Auth';
-import Home from './components/Home';
 import Login from './components/Login';
 import './index.css';
-import CharSetting from './CharSetting/CharSetting';
-import CharRadeSetting from './CharRadeSetting/CharRadeSetting';
+import CharSetting from './components/CharSetting/CharSetting';
+import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
+import Dashboard from './components/Dashboard/Dashboard';
+import OnedayQuest from './components/OnedayQuest/OnedayQuest';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,11 +41,11 @@ if (rootElem) {
         <Router>
           <Routes>
             <Route path="/" element={<Auth />}>
-              <Route path="home" element={<Home />} />
-              <Route path="login" element={<Login />} />
+              <Route path="dashboard" element={<Dashboard />} />
               <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
-              <Route path="/" element={<Home />} />
+              <Route path="oneday-quest" element={<OnedayQuest />} />
+              <Route path="login" element={<Login />} />
             </Route>
           </Routes>
         </Router>
