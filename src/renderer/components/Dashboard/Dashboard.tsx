@@ -85,6 +85,18 @@ export default function DashboardContent() {
               id: user.name,
               list: cTodo,
             });
+          } else {
+            dsTodo[fIdx].list = TODO_LIST.map((item) => {
+              const todoIdx = dsTodo[fIdx].list.findIndex(
+                (todo) => todo.name === item.name,
+              );
+              return {
+                ...item,
+                done: dsTodo[fIdx].list[todoIdx].done ?? false,
+                doneTime: dsTodo[fIdx].list[todoIdx].doneTime ?? '',
+                display: dsTodo[fIdx].list[todoIdx].display ?? item.display,
+              };
+            });
           }
         }),
       );

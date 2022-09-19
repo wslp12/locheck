@@ -45,23 +45,30 @@ function TodoList(props: { user: Auth }) {
 
   const [todoList, setTodoList] = useRecoilState(todoState);
 
-  const handleClickCheckTodo = (id: TodoId, todoName: Todo['name']) => {
+  const handleClickCheckTodo = (
+    id: TodoId,
+    todoGroupName: Todo['groupName'],
+  ) => {
     setTodoList((ps) =>
       produce(ps, (ds) => {
         const todoListIdx = ds.findIndex(
           (todoListItem) => todoListItem.id === id,
         );
         if (todoListIdx !== -1) {
-          const todoIdx = ds[todoListIdx].list.findIndex(
-            (item) => item.name === todoName,
+          const todoLists = ds[todoListIdx].list.filter(
+            (item) => item.groupName === todoGroupName,
           );
-          if (todoIdx !== -1) {
-            ds[todoListIdx].list[todoIdx].done = !ds[todoListIdx].list[todoIdx]
-              .done;
-            ds[todoListIdx].list[todoIdx].doneTime = dayjs().format(
-              'YYYY-MM-DDTHH:mm:ss',
-            );
-          }
+          todoLists.forEach((item) => {
+            item.done = !item.done;
+            item.doneTime = dayjs().format('YYYY-MM-DDTHH:mm:ss');
+          });
+          // if (todoIdx !== -1) {
+          //   ds[todoListIdx].list[todoIdx].done = !ds[todoListIdx].list[todoIdx]
+          //     .done;
+          //   ds[todoListIdx].list[todoIdx].doneTime = dayjs().format(
+          //     'YYYY-MM-DDTHH:mm:ss',
+          //   );
+          // }
         }
       }),
     );
@@ -97,7 +104,7 @@ function TodoList(props: { user: Auth }) {
                   position: 'relative',
                 }}
                 onClick={() =>
-                  handleClickCheckTodo(currentTodoList.id, todo.name)
+                  handleClickCheckTodo(currentTodoList.id, todo.groupName)
                 }
               >
                 <img
@@ -127,7 +134,7 @@ function TodoList(props: { user: Auth }) {
                     todo.done ? 'hover:bg-gray-700' : 'hover:bg-blue-700'
                   } text-white font-bold py-2 px-4 rounded`}
                   onClick={() =>
-                    handleClickCheckTodo(currentTodoList.id, todo.name)
+                    handleClickCheckTodo(currentTodoList.id, todo.groupName)
                   }
                 >
                   {todo.name}
