@@ -102,7 +102,7 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 export default function MainLayout() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const [userInfo, setUserInfo] = useRecoilState(authState);
   const [todoList, setTodoList] = useRecoilState(todoState);
