@@ -58,12 +58,13 @@
     "react/jsx-one-expression-per-line": "off", // 프리티어에서 관리
     "react/jsx-wrap-multilines": "off", // 프리티어에서 관리
     "no-else-return": ["error", { "allowElseIf": true }], // LINK src/AppRoutes.tsx:23
-    "linebreak-style": ["error", "windows"], // window 환경에서 작업.
+    // "linebreak-style": ["error", "windows"], // window 환경에서 작업.
     "arrow-body-style": "off",
     "array-callback-return": "off",
     "no-unused-expressions": "off",
     "arrow-parens": "off",
     "react/jsx-curly-newline": "off",
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "linebreak-style": "off"
   }
 }

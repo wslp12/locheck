@@ -45,9 +45,10 @@ if (rootElem) {
               <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="oneday-quest" element={<OnedayQuest />} />
-              <Route path="login" element={<Login />} />
+
               <Route path="/" element={<Dashboard />} />
             </Route>
+            <Route path="login" element={<Login />} />
           </Routes>
         </Router>
       </RecoilRoot>

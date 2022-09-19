@@ -78,46 +78,6 @@ function Auth() {
           }),
         );
       });
-      userInfo.forEach((user) => {
-        setTodoList((psTodo) =>
-          produce(psTodo, (dsTodo) => {
-            const fIdx = dsTodo.findIndex((item) => item.id === user.name);
-            if (fIdx === -1) {
-              const cTodo = TODO_LIST.map((todo) => {
-                if (todo.name === '비아키스[노말]' && user.itemLevel >= 1460) {
-                  return {
-                    ...todo,
-                    display: false,
-                  };
-                }
-
-                if (todo.name === '발탄[노말]' && user.itemLevel >= 1445) {
-                  return {
-                    ...todo,
-                    display: false,
-                  };
-                }
-                /**
-                 * 숙제 레벨이 유저 레벨보다 높으면 안보여준다
-                 */
-                if (todo.level > user.itemLevel) {
-                  return {
-                    ...todo,
-                    display: false,
-                  };
-                }
-                return todo;
-                // return todo.level <= user.itemLevel;
-              });
-
-              dsTodo.push({
-                id: user.name,
-                list: cTodo,
-              });
-            }
-          }),
-        );
-      });
     }
   }, []);
 

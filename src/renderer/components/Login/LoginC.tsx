@@ -19,8 +19,8 @@ function LoginC() {
       (globalThis as any).ipc.sendSync('login', idValue),
     );
 
-    navigate('/dashboard');
     setAuth(result);
+    navigate('/dashboard');
   };
 
   const handleIdChange: HandleIdChange = (e) => {
