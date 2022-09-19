@@ -3,18 +3,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { produce } from 'immer';
 import dayjs from 'dayjs';
 import { authState } from '../../recoil/auth';
 import { RECOIL_KEY } from '../../enum';
-import { todoState, TODO_LIST } from '../../recoil/todo';
+import { todoState } from '../../recoil/todo';
 import MainLayout from '../Layout/MainLayout';
 
 function Auth() {
   const navigate = useNavigate();
   const auth = useRecoilValue(authState);
-  const [userInfo, setUserInfo] = useRecoilState(authState);
   const setTodoList = useSetRecoilState(todoState);
 
   useEffect(() => {
