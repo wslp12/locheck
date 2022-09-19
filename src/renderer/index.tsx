@@ -10,6 +10,7 @@ import CharSetting from './components/CharSetting/CharSetting';
 import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
 import Dashboard from './components/Dashboard/Dashboard';
 import OnedayQuest from './components/OnedayQuest/OnedayQuest';
+import SortSetting from './components/SortSetting/SortSetting';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,8 +45,8 @@ if (rootElem) {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
-              <Route path="oneday-quest" element={<OnedayQuest />} />
-
+              {/* <Route path="oneday-quest" element={<OnedayQuest />} /> */}
+              <Route path="sort-setting" element={<SortSetting />} />
               <Route path="/" element={<Dashboard />} />
             </Route>
             <Route path="login" element={<Login />} />

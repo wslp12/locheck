@@ -78,6 +78,9 @@ function Auth() {
           }),
         );
       });
+      ipc.on('moveSort', () => {
+        navigate('/sort-setting');
+      });
     }
   }, []);
 

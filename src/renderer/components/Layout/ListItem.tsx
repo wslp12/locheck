@@ -50,19 +50,6 @@ export const OnedayQuestLnbItem = () => {
 export const mainListItems = (
   <React.Fragment>
     <DashboardLnbItem />
-    <OnedayQuestLnbItem />
-    <ListItemButton>
-      <ListItemIcon>
-        <CalendarMonthIcon />
-      </ListItemIcon>
-      <ListItemText primary="군단장 레이드" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <CalendarMonthIcon />
-      </ListItemIcon>
-      <ListItemText primary="어비스 던전" />
-    </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <CalendarMonthIcon />

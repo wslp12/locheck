@@ -91,6 +91,17 @@ class MenuCtrl {
               }
             },
           },
+          {
+            label: '정렬 기능 관리',
+            click: (mi, bw) => {
+              if (bw) {
+                /**
+                 * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
+                 */
+                bw.webContents.send('moveSort');
+              }
+            },
+          },
         ],
       },
 
