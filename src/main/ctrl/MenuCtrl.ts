@@ -2,8 +2,9 @@
 /* eslint-disable lines-between-class-members */
 /* eslint-disable import/no-extraneous-dependencies */
 // import storage from 'electron-json-storage';
-import { app, dialog } from 'electron';
+import { app, BrowserView, BrowserWindow, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import path from 'path';
 
 class MenuCtrl {
   private _menus: Electron.MenuItemConstructorOptions[];
@@ -106,16 +107,29 @@ class MenuCtrl {
       },
 
       {
-        label: '이동',
+        label: '레이드 도움팝업',
         submenu: [
           {
-            label: '대시보드 이동',
+            label: '쿠쿠빙고',
             click: (mi, bw) => {
               if (bw) {
                 /**
                  * 캐릭터 숨김처리로 이동되는 라우트를 트리깅 합니다
                  */
-                bw.webContents.send('moveHome');
+                // bw.webContents.send('moveHome');
+                const window = new BrowserWindow({
+                  width: 500,
+                  height: 500,
+                  resizable: true,
+                  alwaysOnTop: true,
+                  webPreferences: {
+                    devTools: true,
+                  },
+                });
+                window.webContents.loadFile(
+                  path.join(__dirname, '../../public/kuku.html'),
+                );
+                window.webContents.openDevTools();
               }
             },
           },
