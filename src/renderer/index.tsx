@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Auth from './components/Auth';
 import Login from './components/Login';
 import './index.css';
@@ -49,6 +50,7 @@ if (rootElem) {
             <Route path="login" element={<Login />} />
           </Routes>
         </Router>
+        <ReactQueryDevtools position="bottom-right" />
       </RecoilRoot>
     </QueryClientProvider>,
     // </React.StrictMode>,

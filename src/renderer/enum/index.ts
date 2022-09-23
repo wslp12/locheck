@@ -8,11 +8,7 @@ const enum RECOIL_KEY {
 }
 
 const enum QUERY_KEY {
-  GET_CARHS = 'GET_CARHS',
+  USER_INFO = 'USER_INFO',
 }
 
-const enum STORAGE_KEY {
-  AUTH = 'USER_INFO',
-}
-
-export { RECOIL_KEY, QUERY_KEY, STORAGE_KEY };
+export { RECOIL_KEY, QUERY_KEY };
