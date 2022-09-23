@@ -3,17 +3,17 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import LoginP from './LoginP';
 import { HandleClickLogin, HandleIdChange } from './login.type';
-import { Auth, authState } from '../../recoil/auth';
+import { userAtomState } from '../../recoil/user.state';
 import useGetUserInfo from '../../api/get-user';
-
-// import useGetChars from '../../api/get-chars';
 
 function LoginC() {
   const [idValue, setIdValue] = useState('');
 
+  const setUserStaet = useSetRecoilState(userAtomState);
+
   const navigate = useNavigate();
 
-  const { refetch } = useGetUserInfo(idValue);
+  const { data, refetch } = useGetUserInfo(idValue);
 
   const handleClickLogin: HandleClickLogin = () => {
     if (idValue === '') return;
@@ -24,9 +24,10 @@ function LoginC() {
     // );
 
     refetch().then((res) => {
-      console.log('@@@@@@@', res);
-      if (res.data?.status !== 200) return;
-      console.log('@@@@@@@333', res);
+      console.log('@@@@@@@', res, data);
+      if (res.data?.statusCode === 404) return;
+      console.log('@@@@@@@333', res, data);
+      setUserStaet(data);
       navigate('/dashboard');
     });
   };

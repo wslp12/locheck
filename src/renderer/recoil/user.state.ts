@@ -2,7 +2,6 @@
 /* eslint-disable import/prefer-default-export */
 import { atom } from 'recoil';
 import { RECOIL_KEY } from '../enum';
-// import { Todo, TodoId } from './todo';
 
 const localStorageEffect =
   (key: any) =>
@@ -19,21 +18,10 @@ const localStorageEffect =
     });
   };
 
-type Auth = {
-  profileSrc: string;
-  jobIcon: string;
-  jobProfileSrc: string;
-  job: string;
-  level: number;
-  itemLevel: number;
-  name: string;
-  display: boolean;
-};
-
-const authState = atom({
-  key: RECOIL_KEY.AUTH,
-  default: <Auth[]>[],
-  effects: [localStorageEffect('STORAGE_KEY.AUTH')],
+const userAtomState = atom({
+  key: RECOIL_KEY.USER_ATOM_STATE,
+  default: <{ name: string } | null>null,
+  effects: [localStorageEffect(RECOIL_KEY.USER_ATOM_STATE)],
 });
 
-export { authState, Auth };
+export { userAtomState };

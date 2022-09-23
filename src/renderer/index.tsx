@@ -7,9 +7,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Auth from './components/Auth';
 import Login from './components/Login';
 import './index.css';
-import CharSetting from './components/CharSetting/CharSetting';
-import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
-import Dashboard from './components/Dashboard/Dashboard';
+// import CharSetting from './components/CharSetting/CharSetting';
+// import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
+// import Dashboard from './components/Dashboard/Dashboard';
 import SortSetting from './components/SortSetting/SortSetting';
 
 const queryClient = new QueryClient({
@@ -41,11 +41,11 @@ if (rootElem) {
         <Router>
           <Routes>
             <Route path="/" element={<Auth />}>
-              <Route path="dashboard" element={<Dashboard />} />
+              {/* <Route path="dashboard" element={<Dashboard />} />
               <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} />
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} /> */}
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>

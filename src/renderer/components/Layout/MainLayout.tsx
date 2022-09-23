@@ -26,10 +26,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useRecoilState } from 'recoil';
 import { mainListItems, secondaryListItems } from './ListItem';
-import { authState } from '../../recoil/auth';
+// import { authState } from '../../recoil/user.state';
 import { todoState } from '../../recoil/todo';
 import ProfileImg from '../ProfileImg';
-import TodoList from '../TodoList/TodoList';
+// import TodoList from '../TodoList/TodoList';
 
 function Copyright(props: any) {
   return (
@@ -104,18 +104,18 @@ const mdTheme = createTheme();
 export default function MainLayout() {
   const [open, setOpen] = React.useState(false);
 
-  const [userInfo, setUserInfo] = useRecoilState(authState);
+  // const [userInfo, setUserInfo] = useRecoilState(authState);
   const [todoList, setTodoList] = useRecoilState(todoState);
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const charList = userInfo
-    .filter((user) => {
-      return user.display;
-    })
-    .sort((a, b) => b.itemLevel - a.itemLevel);
+  // const charList = userInfo
+  //   .filter((user) => {
+  //     return user.display;
+  //   })
+  //   .sort((a, b) => b.itemLevel - a.itemLevel);
 
   return (
     <ThemeProvider theme={mdTheme}>

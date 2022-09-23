@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-shadow */
 const enum RECOIL_KEY {
-  AUTH = 'AUTH',
+  USER_ATOM_STATE = 'USER_ATOM_STATE',
   TODO_LIST = 'TODO_LIST',
   TODO_IDS = 'TODO_IDS',
   TODO_ID = 'TODO_ID',

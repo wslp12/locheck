@@ -9,6 +9,8 @@ const getUserInfo = async (id: Id) => {
   const url = `http://localhost:3000/user/${encodeId}`;
   return fetch(url, {
     method: 'GET',
+  }).then((res) => {
+    return res.json();
   });
 };
 
