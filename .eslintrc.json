@@ -65,6 +65,7 @@
     "arrow-parens": "off",
     "react/jsx-curly-newline": "off",
     "function-paren-newline": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "no-confusing-arrow": "off" // 프리티어에서 관리
   }
 }

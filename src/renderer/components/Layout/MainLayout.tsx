@@ -1,9 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
-/* eslint-disable no-confusing-arrow */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,38 +12,12 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import { Outlet } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { useRecoilState } from 'recoil';
 import { mainListItems, secondaryListItems } from './ListItem';
-// import { authState } from '../../recoil/user.state';
-import { todoState } from '../../recoil/todo';
-import ProfileImg from '../ProfileImg';
-// import TodoList from '../TodoList/TodoList';
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/wslp12">
-        https://github.com/wslp12
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const drawerWidth: number = 240;
+const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -104,18 +72,9 @@ const mdTheme = createTheme();
 export default function MainLayout() {
   const [open, setOpen] = React.useState(false);
 
-  // const [userInfo, setUserInfo] = useRecoilState(authState);
-  const [todoList, setTodoList] = useRecoilState(todoState);
-
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  // const charList = userInfo
-  //   .filter((user) => {
-  //     return user.display;
-  //   })
-  //   .sort((a, b) => b.itemLevel - a.itemLevel);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -124,7 +83,7 @@ export default function MainLayout() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px',
             }}
           >
             <IconButton

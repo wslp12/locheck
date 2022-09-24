@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  HashRouter,
+  Navigate,
+} from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -9,8 +15,9 @@ import Login from './components/Login';
 import './index.css';
 // import CharSetting from './components/CharSetting/CharSetting';
 // import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
-// import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 import SortSetting from './components/SortSetting/SortSetting';
+import MainLayout from './components/Layout/MainLayout';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,25 +42,27 @@ if (rootElem) {
     userAgent.indexOf(' electron/') > -1 ? HashRouter : BrowserRouter;
 
   root.render(
-    // <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Auth />}>
-              {/* <Route path="dashboard" element={<Dashboard />} />
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <Router>
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route path="/" element={<Auth />}>
+                  {/* <Route path="dashboard" element={<Dashboard />} />
               <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
-              <Route path="sort-setting" element={<SortSetting />} />
-              <Route path="/" element={<Dashboard />} /> */}
-            </Route>
-            <Route path="login" element={<Login />} />
-          </Routes>
-        </Router>
-        <ReactQueryDevtools position="bottom-right" />
-      </RecoilRoot>
-    </QueryClientProvider>,
-    // </React.StrictMode>,
+              <Route path="sort-setting" element={<SortSetting />} /> */}
+                </Route>
+                <Route path="*" element={<Navigate to="/" />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </Router>
+          <ReactQueryDevtools position="bottom-right" />
+        </RecoilRoot>
+      </QueryClientProvider>
+    </React.StrictMode>,
   );
 } else {
   console.error(
