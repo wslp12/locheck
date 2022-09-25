@@ -3,17 +3,18 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { HandleClickLogin, HandleIdChange } from './login.type';
 import { userAtomState } from '../../recoil/user.state';
-import useGetUserInfo from '../../api/get-user';
 import LoginBP from './LoginBP';
+import useGetCharacterList from '../../api/get-character-list';
+import characterLsitAtomState from '../../recoil/character-list.state';
 
 function LoginBC() {
   const [idValue, setIdValue] = useState('');
 
-  const setUserStaet = useSetRecoilState(userAtomState);
+  const setCharacterList = useSetRecoilState(characterLsitAtomState);
 
   const navigate = useNavigate();
 
-  const { data, refetch } = useGetUserInfo(idValue);
+  const { data, refetch } = useGetCharacterList(idValue);
 
   const handleClickLogin: HandleClickLogin = () => {
     if (idValue === '') return;
@@ -22,7 +23,7 @@ function LoginBC() {
       console.log('@@@@@@@', res, data);
       if (res.data?.statusCode === 404) return;
       console.log('@@@@@@@333', res, data);
-      setUserStaet(data);
+      setCharacterList(res.data);
       navigate('/dashboard');
     });
   };

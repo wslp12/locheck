@@ -18,14 +18,15 @@ import MainLayout from '../Layout/MainLayout';
 import useGetUserInfo from '../../api/get-user';
 import { userAtomState } from '../../recoil/user.state';
 import LoginP from '../Login/LoginP';
-import LoginB from '../Login/LoginB';
+import LoginBC from '../LoginB/LoginBC';
+import characterLsitAtomState from '../../recoil/character-list.state';
 
 // import { useQueryClient } from '@tanstack/react-query';
 
 function Auth() {
   // const navigate = useNavigate();
   // const location = useLocation();
-  // const user = useRecoilValue(userAtomState);
+  const characterLsitState = useRecoilValue(characterLsitAtomState);
 
   // useEffect(() => {
   //   console.log('asdf', location);
@@ -38,14 +39,18 @@ function Auth() {
   // return <MainLayout />;
   return (
     <>
-      <Button>Show backdrop</Button>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
-        // onClick={handleClose}
-      >
-        <LoginB />
-      </Backdrop>
+      {characterLsitState.length === 0 && (
+        <>
+          <Button>Show backdrop</Button>
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open
+            // onClick={handleClose}
+          >
+            <LoginBC />
+          </Backdrop>
+        </>
+      )}
     </>
   );
   // return <Outlet />;
