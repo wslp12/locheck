@@ -24,17 +24,15 @@ import characterLsitAtomState from '../../recoil/character-list.state';
 // import { useQueryClient } from '@tanstack/react-query';
 
 function Auth() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const location = useLocation();
   const characterLsitState = useRecoilValue(characterLsitAtomState);
 
-  // useEffect(() => {
-  //   console.log('asdf', location);
-  //   if (user === null) {
-  //     navigate('/login');
-  //   }
-  //   // else if (navigate)
-  // }, [user]);
+  useEffect(() => {
+    if (characterLsitState.length !== 0) {
+      navigate('/dashboard');
+    }
+  }, [characterLsitState]);
 
   // return <MainLayout />;
   return (

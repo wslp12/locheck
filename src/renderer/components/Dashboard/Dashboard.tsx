@@ -11,12 +11,12 @@
 // /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 
-// import produce from 'immer';
+import produce from 'immer';
 
-// import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-// import Grid from '@mui/material/Grid';
-// import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 // import dayjs from 'dayjs';
 // import isYesterday from 'dayjs/plugin/isYesterday';
@@ -25,11 +25,12 @@ import * as React from 'react';
 // import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 // import isBetween from 'dayjs/plugin/isBetween';
 
-// import ProfileImg from '../ProfileImg';
+import ProfileImg from '../ProfileImg';
 // import TodoList from '../TodoList/TodoList';
 // import { todoState, TODO_LIST } from '../../recoil/todo';
 // import { authState } from '../../recoil/user.state';
 // import { sortAtomState } from '../../recoil/sort';
+import characterLsitAtomState from '../../recoil/character-list.state';
 
 // dayjs.extend(isYesterday);
 // dayjs.extend(isSameOrAfter);
@@ -41,12 +42,15 @@ export default function DashboardContent() {
   //   const [userInfo, setUserInfo] = useRecoilState(authState);
   //   const [todoList, setTodoList] = useRecoilState(todoState);
   //   const sortState = useRecoilValue(sortAtomState);
+  const [characterLsitState, setCharacterLsitState] = useRecoilState(
+    characterLsitAtomState,
+  );
 
-  //   const charList = userInfo
-  //     .filter((user) => {
-  //       return user.display;
-  //     })
-  //     .sort((a, b) => b.itemLevel - a.itemLevel);
+  // const charList = characterLsitState
+  //   .filter((user) => {
+  //     return user.display;
+  //   })
+  //   .sort((a, b) => b.itemLevel - a.itemLevel);
 
   //   React.useEffect(() => {
   //     userInfo.forEach((user) => {
@@ -137,144 +141,47 @@ export default function DashboardContent() {
   //   }, []);
 
   return (
-    <div>sdf</div>
-    //     <Grid container spacing={charList.length}>
-    //       {sortState
-    //         ? todoList
-    //             .slice()
-    //             .sort((a, b) => {
-    //               const userA = userInfo.find((char) => char.name === a.id);
-    //               const userB = userInfo.find((char) => char.name === b.id);
-
-    //               const aList = a.list.filter((item) => {
-    //                 return (
-    //                   item.gold > 0 &&
-    //                   (userA?.itemLevel ?? 0) >= item.level &&
-    //                   item.display &&
-    //                   !item.done
-    //                 );
-    //               });
-    //               const bList = b.list.filter((item) => {
-    //                 return (
-    //                   item.gold > 0 &&
-    //                   (userB?.itemLevel ?? 0) >= item.level &&
-    //                   item.display &&
-    //                   !item.done
-    //                 );
-    //               });
-
-    //               const aGold = aList.reduce((acc, todo) => {
-    //                 return (
-    //                   acc +
-    //                   (todo.name === '아르고스' && (userA?.itemLevel ?? 0) >= 1475
-    //                     ? 0
-    //                     : todo.gold)
-    //                 );
-    //               }, 0);
-    //               const bGold = bList.reduce((acc, todo) => {
-    //                 return (
-    //                   acc +
-    //                   (todo.name === '아르고스' && (userB?.itemLevel ?? 0) >= 1475
-    //                     ? 0
-    //                     : todo.gold)
-    //                 );
-    //               }, 0);
-    //               console.log(aGold, userA?.name, bGold, userB?.name);
-    //               return bGold - aGold;
-    //             })
-    //             .map((item) => {
-    //               const user = userInfo.find((char) => char.name === item.id);
-    //               if (!user) {
-    //                 return (
-    //                   <div key={item.id}>
-    //                     캐릭터가 할일 리스트에 포함되어 있지 않습니다
-    //                   </div>
-    //                 );
-    //               }
-    //               if (!user.display) {
-    //                 return <div key={item.id} style={{ display: 'none' }} />;
-    //               }
-    //               return (
-    //                 <Grid item xs={12} key={user.name}>
-    //                   <Paper
-    //                     sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
-    //                   >
-    //                     <div
-    //                       key={user.name}
-    //                       style={{
-    //                         display: 'flex',
-    //                         margin: '0px',
-    //                         padding: '0px',
-    //                         overflow: 'auto',
-    //                       }}
-    //                     >
-    //                       <div>
-    //                         <ProfileImg
-    //                           src={user.jobProfileSrc}
-    //                           alt={user.name}
-    //                           // onClick={(e) => handleClick(e, user)}
-    //                           onClick={(e) => console.log(e)}
-    //                         />
-    //                         <div
-    //                           style={{
-    //                             display: 'flex',
-    //                             flexDirection: 'column',
-    //                             justifyContent: 'center',
-    //                             alignItems: 'center',
-    //                           }}
-    //                         >
-    //                           <span>{user.name}</span>
-    //                           <span>{user.itemLevel}</span>
-    //                         </div>
-    //                       </div>
-
-    //                       <div style={{ display: 'flex' }}>
-    //                         <TodoList user={user} />
-    //                       </div>
-    //                     </div>
-    //                   </Paper>
-    //                 </Grid>
-    //               );
-    //             })
-    //         : charList.map((user) => (
-    //             <Grid item xs={12} key={user.name}>
-    //               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-    //                 <div
-    //                   key={user.name}
-    //                   style={{
-    //                     display: 'flex',
-    //                     margin: '0px',
-    //                     padding: '0px',
-    //                     overflow: 'auto',
-    //                   }}
-    //                 >
-    //                   <div>
-    //                     <ProfileImg
-    //                       src={user.jobProfileSrc}
-    //                       alt={user.name}
-    //                       // onClick={(e) => handleClick(e, user)}
-    //                       onClick={(e) => console.log(e)}
-    //                     />
-    //                     <div
-    //                       style={{
-    //                         display: 'flex',
-    //                         flexDirection: 'column',
-    //                         justifyContent: 'center',
-    //                         alignItems: 'center',
-    //                       }}
-    //                     >
-    //                       <span>{user.name}</span>
-    //                       <span>{user.itemLevel}</span>
-    //                     </div>
-    //                   </div>
-
-    //                   <div style={{ display: 'flex' }}>
-    //                     <TodoList user={user} />
-    //                   </div>
-    //                 </div>
-    //               </Paper>
-    //             </Grid>
-    //           ))}
-    //     </Grid>
+    <Grid container spacing={characterLsitState.length}>
+      123
+      {characterLsitState.map((user: any) => (
+        <Grid item xs={12} key={user.name}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <div
+              key={user.name}
+              style={{
+                display: 'flex',
+                margin: '0px',
+                padding: '0px',
+                overflow: 'auto',
+              }}
+            >
+              <div>
+                <ProfileImg
+                  src={user.jobProfileSrc}
+                  alt={user.name}
+                  // onClick={(e) => handleClick(e, user)}
+                  onClick={(e) => console.log(e)}
+                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <span>{user.name}</span>
+                  <span>{user.itemLevel}</span>
+                </div>
+              </div>
+              <div style={{ display: 'flex' }}>
+                123
+                {/* <TodoList user={user} /> */}
+              </div>
+            </div>
+          </Paper>
+        </Grid>
+      ))}
+    </Grid>
   );
 }

@@ -48,12 +48,13 @@ if (rootElem) {
           <Router>
             <Routes>
               <Route path="/" element={<MainLayout />}>
-                <Route path="/" element={<Auth />}>
-                  <Route path="dashboard" element={<Dashboard />} />
-                  {/* <Route path="char-setting" element={<CharSetting />} />
+                <Route path="dashboard" element={<Dashboard />} />
+
+                {/* <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
-                </Route>
+
+                <Route path="*" element={<Auth />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Route>
               <Route path="/login" element={<Login />} />
