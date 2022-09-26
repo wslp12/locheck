@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  "editor.defaultFormatter": "SimonSiefke.prettier-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-shadow */
 const enum RECOIL_KEY {
-  CHRACTER_LIST = 'CHRACTER_LIST',
+  CHARACTER_LIST = 'CHARACTER_LIST',
   LOGIN_MODE = 'LOGIN_MODE',
   USER = 'USER',
   TODO_LIST = 'TODO_LIST',
@@ -11,7 +11,8 @@ const enum RECOIL_KEY {
 
 const enum QUERY_KEY {
   USER_INFO = 'USER_INFO',
-  CHRAACTER_LIST = 'CHRAACTER_LIST',
+  CHARACTER_LIST = 'CHARACTER_LIST',
+  RAID_LIST = 'RAID_LIST',
 }
 
 const enum LOGIN_MODE {

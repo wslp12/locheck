@@ -17,9 +17,21 @@ const localStorageEffect =
   };
 
 const characterLsitAtomState = atom({
-  key: RECOIL_KEY.CHRACTER_LIST,
-  default: [],
-  effects: [localStorageEffect(RECOIL_KEY.CHRACTER_LIST)],
+  key: RECOIL_KEY.CHARACTER_LIST,
+  default: <
+    {
+      display: boolean;
+      groupSetName: string;
+      itemLevel: number;
+      job: string;
+      jobIcon: string;
+      jobProfileSrc: string;
+      level: number;
+      name: string;
+      profileSrc: string;
+    }[]
+  >[],
+  effects: [localStorageEffect(RECOIL_KEY.CHARACTER_LIST)],
 });
 
 export default characterLsitAtomState;

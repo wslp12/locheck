@@ -15,7 +15,7 @@ const getCharacterList = async (id: Id) => {
 };
 
 const useGetCharacterList = (id: Id) => {
-  return useQuery([QUERY_KEY.CHRAACTER_LIST], () => getCharacterList(id), {
+  return useQuery([QUERY_KEY.CHARACTER_LIST], () => getCharacterList(id), {
     enabled: false,
   });
 };

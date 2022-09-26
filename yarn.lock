@@ -1739,6 +1739,13 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.3.3.tgz#77c2e258bbc43e0871f700150397376f111c7b87"
   integrity sha512-D8k59GAunx8LnjAHep/iHQRVw0WSNKO0IsvrfjPfUegp/zBRum0VaAFRul7dxykDkKEWp0lchOm6nkRasty8RA==
 
+"@tanstack/query-sync-storage-persister@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-sync-storage-persister/-/query-sync-storage-persister-4.6.1.tgz#762cb0a1e54ffdfd9e6072313c2af9024ca2533f"
+  integrity sha512-kIkD+s14L0o6aifpF04k6KWa3HR17L/vCxnldz8sEtYCxSR7lkgUKEW2Xbe7+Qyv+Ii7vWR9RzY7R4csst5fsQ==
+  dependencies:
+    "@tanstack/react-query-persist-client" "4.6.1"
+
 "@tanstack/react-query-devtools@^4.3.9":
   version "4.3.9"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-4.3.9.tgz#3897d30f49b1b86f473fe4dbac8f634fc33b6e80"
@@ -1746,6 +1753,11 @@
   dependencies:
     "@tanstack/match-sorter-utils" "^8.1.1"
     use-sync-external-store "^1.2.0"
+
+"@tanstack/react-query-persist-client@4.6.1", "@tanstack/react-query-persist-client@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-4.6.1.tgz#0c40a91faf66acc281aa5b754b779ef8551c7c84"
+  integrity sha512-TZfz1vJ2e7ZJgr+guZENHP5SlqXJT/bab8/NfhkiH+ihoUrINmxdpuluTZI2Vu8qryUPdaX3wwCuNNjIeiyPog==
 
 "@tanstack/react-query@^4.3.3":
   version "4.3.3"

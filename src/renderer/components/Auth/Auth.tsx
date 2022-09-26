@@ -23,7 +23,8 @@ import characterLsitAtomState from '../../recoil/character-list.state';
 
 // import { useQueryClient } from '@tanstack/react-query';
 
-function Auth() {
+function Auth(props: any) {
+  const { children } = props;
   const navigate = useNavigate();
   // const location = useLocation();
   const characterLsitState = useRecoilValue(characterLsitAtomState);
@@ -49,6 +50,7 @@ function Auth() {
           </Backdrop>
         </>
       )}
+      {children}
     </>
   );
   // return <Outlet />;

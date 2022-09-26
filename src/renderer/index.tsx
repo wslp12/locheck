@@ -7,9 +7,14 @@ import {
   HashRouter,
   Navigate,
 } from 'react-router-dom';
+
 import { RecoilRoot } from 'recoil';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+
 import Auth from './components/Auth';
 import Login from './components/Login';
 import './index.css';
@@ -30,6 +35,10 @@ const queryClient = new QueryClient({
   },
 });
 
+const persister = createSyncStoragePersister({
+  storage: window.localStorage,
+});
+
 const id = 'root';
 const rootElem = document.getElementById(id);
 if (rootElem) {
@@ -43,18 +52,28 @@ if (rootElem) {
 
   root.render(
     <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
+      {/* <QueryClientProvider client={queryClient}> */}
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}
+      >
         <RecoilRoot>
           <Router>
             <Routes>
-              <Route path="/" element={<MainLayout />}>
+              <Route
+                path="/"
+                element={
+                  <Auth>
+                    <MainLayout />
+                  </Auth>
+                }
+              >
                 <Route path="dashboard" element={<Dashboard />} />
 
                 {/* <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
 
-                <Route path="*" element={<Auth />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Route>
               <Route path="/login" element={<Login />} />
@@ -62,7 +81,7 @@ if (rootElem) {
           </Router>
           <ReactQueryDevtools position="bottom-right" />
         </RecoilRoot>
-      </QueryClientProvider>
+      </PersistQueryClientProvider>
     </React.StrictMode>,
   );
 } else {

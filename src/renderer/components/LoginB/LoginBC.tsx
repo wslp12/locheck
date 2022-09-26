@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { HandleClickLogin, HandleIdChange } from './login.type';
 import { userAtomState } from '../../recoil/user.state';
 import LoginBP from './LoginBP';
-import useGetCharacterList from '../../api/get-character-list';
+import useGetCharacterList from '../../api/get-character-list.api';
 import characterLsitAtomState from '../../recoil/character-list.state';
 
 function LoginBC() {
