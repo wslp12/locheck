@@ -80,7 +80,7 @@ export default function MainLayout() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open} style={{ zIndex: 1200 }}>
           <Toolbar
             sx={{
               pr: '24px',

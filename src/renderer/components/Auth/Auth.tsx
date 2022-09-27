@@ -39,16 +39,14 @@ function Auth(props: any) {
   return (
     <>
       {characterLsitState.length === 0 && (
-        <>
-          <Button>Show backdrop</Button>
+        <div>
           <Backdrop
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open
-            // onClick={handleClose}
           >
             <LoginBC />
           </Backdrop>
-        </>
+        </div>
       )}
       {children}
     </>
