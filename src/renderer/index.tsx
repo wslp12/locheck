@@ -23,6 +23,10 @@ import './index.css';
 import Dashboard from './components/Dashboard/Dashboard';
 import SortSetting from './components/SortSetting/SortSetting';
 import MainLayout from './components/Layout/MainLayout';
+import SplashProvider, {
+  SplashContext,
+} from './components/Splash/SplashProvider';
+import Splash from './components/Splash/Splash';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,34 +56,36 @@ if (rootElem) {
 
   root.render(
     <React.StrictMode>
-      {/* <QueryClientProvider client={queryClient}> */}
       <PersistQueryClientProvider
         client={queryClient}
         persistOptions={{ persister }}
       >
         <RecoilRoot>
-          <Router>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Auth>
-                    <MainLayout />
-                  </Auth>
-                }
-              >
-                <Route path="dashboard" element={<Dashboard />} />
+          <SplashProvider>
+            <Router>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Auth>
+                      <MainLayout />
+                    </Auth>
+                  }
+                >
+                  <Route path="dashboard" element={<Dashboard />} />
 
-                {/* <Route path="char-setting" element={<CharSetting />} />
+                  {/* <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
 
-                <Route path="*" element={<Navigate to="/" />} />
-              </Route>
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </Router>
-          <ReactQueryDevtools position="bottom-right" />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Route>
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </Router>
+            <ReactQueryDevtools position="bottom-right" />
+            <Splash />
+          </SplashProvider>
         </RecoilRoot>
       </PersistQueryClientProvider>
     </React.StrictMode>,
