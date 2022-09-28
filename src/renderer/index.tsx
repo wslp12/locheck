@@ -16,7 +16,7 @@ import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persist
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 
 import Auth from './components/Auth';
-import Login from './components/Login';
+
 import './index.css';
 // import CharSetting from './components/CharSetting/CharSetting';
 // import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
@@ -27,6 +27,8 @@ import SplashProvider, {
   SplashContext,
 } from './components/Splash/SplashProvider';
 import Splash from './components/Splash/Splash';
+import LoginModal from './components/Login';
+import LoginModalProvider from './components/Login/LoginModalProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,29 +64,31 @@ if (rootElem) {
       >
         <RecoilRoot>
           <SplashProvider>
-            <Splash />
-            <Router>
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Auth>
-                      <MainLayout />
-                    </Auth>
-                  }
-                >
-                  <Route path="dashboard" element={<Dashboard />} />
+            <LoginModalProvider>
+              <Splash />
+              <LoginModal />
+              <Router>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Auth>
+                        <MainLayout />
+                      </Auth>
+                    }
+                  >
+                    <Route path="dashboard" element={<Dashboard />} />
 
-                  {/* <Route path="char-setting" element={<CharSetting />} />
+                    {/* <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
 
-                  <Route path="*" element={<Navigate to="/" />} />
-                </Route>
-                <Route path="/login" element={<Login />} />
-              </Routes>
-            </Router>
-            <ReactQueryDevtools position="bottom-right" />
+                    <Route path="*" element={<Navigate to="/" />} />
+                  </Route>
+                </Routes>
+              </Router>
+              <ReactQueryDevtools position="bottom-right" />
+            </LoginModalProvider>
           </SplashProvider>
         </RecoilRoot>
       </PersistQueryClientProvider>

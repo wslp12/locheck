@@ -146,7 +146,7 @@ export default function DashboardContent() {
     // );
   }, [raidList]);
 
-  // console.log(todoList);
+  console.log(raidList);
   return (
     <Grid container spacing={characterLsitState.length}>
       {characterLsitState

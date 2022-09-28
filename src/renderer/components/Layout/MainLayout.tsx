@@ -15,7 +15,9 @@ import { Outlet } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import LoginIcon from '@mui/icons-material/Login';
 import { mainListItems, secondaryListItems } from './ListItem';
+import { LoginModalContext } from '../Login/LoginModalProvider';
 
 const drawerWidth = 240;
 
@@ -70,6 +72,11 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 export default function MainLayout() {
+  const loginModalState = React.useContext(LoginModalContext);
+  if (loginModalState === null) return <></>;
+
+  const { showModal } = loginModalState;
+
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = () => {
@@ -107,10 +114,8 @@ export default function MainLayout() {
             >
               대시보드
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+            <IconButton color="inherit" onClick={showModal}>
+              <LoginIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
