@@ -62,6 +62,7 @@ if (rootElem) {
       >
         <RecoilRoot>
           <SplashProvider>
+            <Splash />
             <Router>
               <Routes>
                 <Route
@@ -84,7 +85,6 @@ if (rootElem) {
               </Routes>
             </Router>
             <ReactQueryDevtools position="bottom-right" />
-            <Splash />
           </SplashProvider>
         </RecoilRoot>
       </PersistQueryClientProvider>

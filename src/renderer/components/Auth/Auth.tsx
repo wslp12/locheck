@@ -40,10 +40,7 @@ function Auth(props: any) {
     <>
       {characterLsitState.length === 0 && (
         <div>
-          <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open
-          >
+          <Backdrop sx={{ color: '#fff', zIndex: (theme) => 1201 }} open>
             <LoginBC />
           </Backdrop>
         </div>

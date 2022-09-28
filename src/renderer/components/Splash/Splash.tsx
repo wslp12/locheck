@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { SplashContext } from './SplashProvider';
+import './splash.css';
 
 function Splash() {
   const splashState = useContext(SplashContext);
@@ -15,20 +16,21 @@ function Splash() {
       style={{
         width: '100%',
         height: '100%',
-        // backgroundColor: 'rgba(0,0,0,0.5)',
-        backgroundColor: 'rgba(0,0,0,1)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 1202,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <div
-        style={{
-          backgroundColor: '#fff',
-        }}
-      >
-        splash Image
+      <div className="lds-facebook">
+        <div />
+        <div />
+        <div />
       </div>
-      <button type="button" onClick={hideModal}>
-        x
-      </button>
     </div>
   ) : (
     <></>
