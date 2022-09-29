@@ -18,7 +18,7 @@ const localStorageEffect = (key: any) => ({ setSelf, onSet }: any) => {
 
 const userAtomState = atom({
   key: RECOIL_KEY.USER,
-  default: <{ name: string } | null>null,
+  default: <{ name: string; token: string } | null>null,
   effects: [localStorageEffect(RECOIL_KEY.USER)],
 });
 

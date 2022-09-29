@@ -17,22 +17,18 @@ function LoginModal() {
 
   const { data, refetch } = useGetUserInfo(idValue);
 
+  const setUserState = useSetRecoilState(userAtomState);
+
   const handleClickLogin: HandleClickLogin = () => {
     if (idValue === '') return;
-    console.log('???', idValue);
-    // if (!(globalThis as any).ipc) return;
 
-    // const result: Auth[] = JSON.parse(
-    //   (globalThis as any).ipc.sendSync('login', idValue),
-    // );
+    refetch().then((res) => {
+      if (res.data?.statusCode === 404 || !res.data?.token) return;
 
-    // refetch().then((res) => {
-    //   console.log('@@@@@@@', res, data);
-    //   if (res.data?.statusCode === 404) return;
-    //   console.log('@@@@@@@333', res, data);
-    //   setUserStaet(data);
-    //   // navigate('/dashboard');
-    // });
+      console.log(res.data);
+      hideModal();
+      setUserState(res.data);
+    });
   };
 
   const handleIdChange: HandleIdChange = (e) => {
@@ -43,6 +39,7 @@ function LoginModal() {
     <LoginP
       onClickLogin={handleClickLogin}
       onChangeId={handleIdChange}
+      hideModal={hideModal}
       idValue={idValue}
     />
   ) : (

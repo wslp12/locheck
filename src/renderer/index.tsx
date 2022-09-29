@@ -41,9 +41,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const persister = createSyncStoragePersister({
-  storage: window.localStorage,
-});
+// const persister = createSyncStoragePersister({
+//   storage: window.localStorage,
+// });
 
 const id = 'root';
 const rootElem = document.getElementById(id);
@@ -58,10 +58,7 @@ if (rootElem) {
 
   root.render(
     <React.StrictMode>
-      <PersistQueryClientProvider
-        client={queryClient}
-        persistOptions={{ persister }}
-      >
+      <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <SplashProvider>
             <LoginModalProvider>
@@ -91,7 +88,7 @@ if (rootElem) {
             </LoginModalProvider>
           </SplashProvider>
         </RecoilRoot>
-      </PersistQueryClientProvider>
+      </QueryClientProvider>
     </React.StrictMode>,
   );
 } else {
