@@ -148,13 +148,13 @@ export default function DashboardContent() {
 
   console.log(raidList);
   return (
-    <Grid container spacing={characterLsitState.length}>
+    <Grid container spacing={2}>
       {characterLsitState
         .slice()
         .sort((a, b) => b.itemLevel - a.itemLevel)
         .map((user: any) => (
           <Grid item xs={12} key={user.name}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column' }}>
               <div
                 key={user.name}
                 style={{
@@ -164,7 +164,14 @@ export default function DashboardContent() {
                   overflow: 'auto',
                 }}
               >
-                <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
                   <ProfileImg
                     src={user.jobProfileSrc}
                     alt={user.name}
@@ -177,6 +184,7 @@ export default function DashboardContent() {
                       flexDirection: 'column',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      fontSize: '14px',
                     }}
                   >
                     <span>{user.name}</span>

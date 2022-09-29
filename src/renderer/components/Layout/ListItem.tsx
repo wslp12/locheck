@@ -13,6 +13,8 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
 import { useNavigate } from 'react-router-dom';
 
 export const DashboardLnbItem = () => {
@@ -82,7 +84,7 @@ export const secondaryListItems = (
     </ListSubheader> */}
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AddCircleIcon />
       </ListItemIcon>
       <ListItemText primary="레이드 가이드" />
     </ListItemButton>
