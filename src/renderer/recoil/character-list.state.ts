@@ -16,21 +16,21 @@ const localStorageEffect =
     });
   };
 
+export type Character = {
+  display: boolean;
+  groupSetName: string;
+  itemLevel: number;
+  job: string;
+  jobIcon: string;
+  jobProfileSrc: string;
+  level: number;
+  name: string;
+  profileSrc: string;
+};
+
 const characterLsitAtomState = atom({
   key: RECOIL_KEY.CHARACTER_LIST,
-  default: <
-    {
-      display: boolean;
-      groupSetName: string;
-      itemLevel: number;
-      job: string;
-      jobIcon: string;
-      jobProfileSrc: string;
-      level: number;
-      name: string;
-      profileSrc: string;
-    }[]
-  >[],
+  default: <Character[]>[],
   effects: [localStorageEffect(RECOIL_KEY.CHARACTER_LIST)],
 });
 

@@ -1,6 +1,9 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-fragments */
 import * as React from 'react';
+
+import { useRecoilValue } from 'recoil';
+
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -16,6 +19,13 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { useNavigate } from 'react-router-dom';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { AddItemModalContext } from '../AddItemModal/AddItemModalProvider';
+import { userAtomState } from '../../recoil/user.state';
+import useGetOrganization from '../../api/get-organization.api';
 
 export const DashboardLnbItem = () => {
   const navigate = useNavigate();
@@ -33,21 +43,21 @@ export const DashboardLnbItem = () => {
   );
 };
 
-export const OnedayQuestLnbItem = () => {
-  const navigate = useNavigate();
+// export const OnedayQuestLnbItem = () => {
+//   const navigate = useNavigate();
 
-  const handleClickButton = () => {
-    navigate('/oneday-quest');
-  };
-  return (
-    <ListItemButton onClick={handleClickButton}>
-      <ListItemIcon>
-        <CalendarTodayIcon />
-      </ListItemIcon>
-      <ListItemText primary="일일 퀘스트" />
-    </ListItemButton>
-  );
-};
+//   const handleClickButton = () => {
+//     navigate('/oneday-quest');
+//   };
+//   return (
+//     <ListItemButton onClick={handleClickButton}>
+//       <ListItemIcon>
+//         <CalendarTodayIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="일일 퀘스트" />
+//     </ListItemButton>
+//   );
+// };
 
 export const mainListItems = (
   <React.Fragment>
@@ -77,18 +87,58 @@ export const mainListItems = (
 //   );
 // }
 
-export const secondaryListItems = (
-  <React.Fragment>
-    {/* <ListSubheader component="div" inset>
+export const SecondaryListItems = () => {
+  const addItemModalState = React.useContext(AddItemModalContext);
+  const userInfo = useRecoilValue(userAtomState);
+  const navi = useNavigate();
+  const { data: orgList } = useGetOrganization(userInfo?.name ?? '');
+  if (addItemModalState === null) return <></>;
+  const { showModal } = addItemModalState;
+
+  const handleGetUserInfo = () => {
+    if (userInfo === null) {
+      toast.error('로그인이후 사용 가능합니다.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      showModal();
+    }
+  };
+
+  const handleClickGuser = (name: string) => {
+    navi(`/character/${name}`);
+  };
+  return (
+    <React.Fragment>
+      {/* <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader> */}
-    <ListItemButton>
-      <ListItemIcon>
-        <AddCircleIcon />
-      </ListItemIcon>
-      <ListItemText primary="레이드 가이드" />
-    </ListItemButton>
-    {/* <ListItemButton>
+      <ListItemButton onClick={handleGetUserInfo}>
+        <ListItemIcon>
+          <AddCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary="아이템 추가" />
+      </ListItemButton>
+      {orgList?.map((item) => {
+        return (
+          <ListItemButton
+            key={item.name}
+            onClick={() => handleClickGuser(item.name)}
+          >
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary={item.name} />
+          </ListItemButton>
+        );
+      })}
+      {/* <ListItemButton>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
@@ -100,5 +150,6 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItemButton> */}
-  </React.Fragment>
-);
+    </React.Fragment>
+  );
+};

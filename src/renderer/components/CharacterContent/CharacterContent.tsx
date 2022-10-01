@@ -11,6 +11,7 @@
 // /* eslint-disable react/jsx-curly-brace-presence */
 // /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import produce from 'immer';
 
@@ -20,6 +21,8 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
 import { v4 as uuidv4 } from 'uuid';
+
+import { toast } from 'react-toastify';
 
 import dayjs from 'dayjs';
 import isYesterday from 'dayjs/plugin/isYesterday';
@@ -39,6 +42,10 @@ import characterLsitAtomState, {
 } from '../../recoil/character-list.state';
 import useGetRaidList from '../../api/get-raid-list.api';
 import { userAtomState } from '../../recoil/user.state';
+import useGetCharacterList, {
+  useGetCharacterList2,
+} from '../../api/get-character-list.api';
+import TodoListRead from '../TodoListRead/TodoListRead';
 
 dayjs.extend(isYesterday);
 dayjs.extend(isSameOrAfter);
@@ -46,66 +53,34 @@ dayjs.extend(isTomorrow);
 dayjs.extend(isToday);
 dayjs.extend(isBetween);
 
-export default function DashboardContent() {
-  const [userInfo, setUserInfo] = useRecoilState(userAtomState);
-  const [todoList, setTodoList] = useRecoilState(todoState);
+export default function CharacterContent() {
+  const { tokenName } = useParams();
 
-  const [characterLsitState, setCharacterLsitState] = useRecoilState(
-    characterLsitAtomState,
-  );
+  const navi = useNavigate();
 
-  const { data: raidList } = useGetRaidList(true);
-
-  // const charList = characterLsitState
-  //   .filter((user) => {
-  //     return user.display;
-  //   })
-  //   .sort((a, b) => b.itemLevel - a.itemLevel);
-
-  const getDisplay = (character: Character, raid: Raid) => {
-    if (raid.name === '비아키스[노말]' && character.itemLevel >= 1460) {
-      return false;
-    } else if (raid.name === '발탄[노말]' && character.itemLevel >= 1445) {
-      return false;
-    } else if (raid.level > character.itemLevel) {
-      /**
-       * 숙제 레벨이 유저 레벨보다 높으면 안보여준다
-       */
-      return false;
-    }
-    return true;
-  };
+  const userState = useRecoilValue(userAtomState);
+  const { data: characterListState } = useGetCharacterList2(tokenName ?? '');
 
   React.useEffect(() => {
-    if (!raidList || !characterLsitState) return;
-    characterLsitState.forEach((character) => {
-      raidList.forEach((raid) => {
-        setTodoList((psTodo) =>
-          produce(psTodo, (dsTodo) => {
-            const fIdx = dsTodo.findIndex(
-              (item) =>
-                item.raid.name === raid.name &&
-                item.characterName === character.name,
-            );
-            if (fIdx === -1) {
-              dsTodo.push({
-                id: uuidv4(),
-                characterName: character.name,
-                display: getDisplay(character, raid),
-                done: false,
-                doneTime: '',
-                raid,
-              });
-            }
-          }),
-        );
-      });
-    });
-  }, [raidList, characterLsitState]);
+    if (userState === null) {
+      toast.error('차단 당합니다. 강제로 접근하지 마세요');
+      navi('/dashboard');
+    }
+  }, [userState]);
+
+  const validate = (c: typeof characterListState) => {
+    if (c === undefined) return [];
+    if ('concat' in c) {
+      return c;
+    }
+    return [];
+  };
+
+  const result = validate(characterListState);
 
   return (
     <Grid container spacing={2}>
-      {characterLsitState
+      {result
         .slice()
         .sort((a, b) => b.itemLevel - a.itemLevel)
         .map((character) => {
@@ -148,7 +123,7 @@ export default function DashboardContent() {
                     </div>
                   </div>
                   <div style={{ display: 'flex' }}>
-                    <TodoList character={character} />
+                    <TodoListRead character={character} />
                   </div>
                 </div>
               </Paper>

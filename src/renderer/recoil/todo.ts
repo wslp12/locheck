@@ -33,7 +33,6 @@ const localStorageEffect =
       if (isReset) {
         localStorage.removeItem(key);
       } else {
-        console.log(newValue);
         localStorage.setItem(key, JSON.stringify(newValue));
       }
     });
@@ -47,26 +46,37 @@ export type Raid = {
   groupName: string;
 };
 
-export type Todo = { done: boolean; doneTime: string; display: boolean } & Raid;
+export type TodoState = {
+  id: string | number;
+  characterName: string;
+  done: boolean;
+  doneTime: string;
+  display: boolean;
+};
 
-type TodoId = string;
+export type Todo = TodoState & { raid: Raid };
+
+const asdf: Todo[] = [
+  {
+    characterName: 'asd',
+    id: '',
+    display: true,
+    doneTime: '',
+    done: true,
+    raid: {
+      gold: 0,
+      groupName: 'asd',
+      level: 1400,
+      name: 'sdf',
+      srcName: 'asd123',
+    },
+  },
+];
 
 const todoState = atom({
   key: RECOIL_KEY.TODO_LIST,
-  default: <{ id: TodoId; list: Todo[] }[]>[],
+  default: <Todo[]>[],
   effects: [localStorageEffect(RECOIL_KEY.TODO_LIST)],
 });
 
-const todoItem = selector({
-  key: 'TODO_ITEM',
-  get:
-    ({ get }) =>
-    (id: TodoId) => {
-      const todoList = get(todoState);
-      console.log(todoList);
-      const idx = todoList.findIndex((todo) => todo.id === id);
-      return todoList[idx];
-    },
-});
-
-export { todoState, todoItem, TodoId };
+export { todoState };

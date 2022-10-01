@@ -1,6 +1,7 @@
 /* eslint-disable no-promise-executor-return */
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEY } from '../enum';
+import { Raid } from '../recoil/todo';
 
 type Id = string;
 
@@ -9,12 +10,14 @@ const getRaidList = async () => {
   return fetch(url, {
     method: 'GET',
   }).then((res) => {
-    return res.json();
+    return res.json() as Promise<Raid[]>;
   });
 };
 
-const useGetRaidList = () => {
-  return useQuery([QUERY_KEY.RAID_LIST], getRaidList);
+const useGetRaidList = (isFetch: boolean) => {
+  return useQuery([QUERY_KEY.RAID_LIST], getRaidList, {
+    enabled: isFetch,
+  });
 };
 
 export default useGetRaidList;

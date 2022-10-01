@@ -15,13 +15,15 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 
+import { ToastContainer } from 'react-toastify';
+
 import Auth from './components/Auth';
 
 import './index.css';
 // import CharSetting from './components/CharSetting/CharSetting';
 // import CharRadeSetting from './components/CharRadeSetting/CharRadeSetting';
 import Dashboard from './components/Dashboard/Dashboard';
-import SortSetting from './components/SortSetting/SortSetting';
+// import SortSetting from './components/SortSetting/SortSetting';
 import MainLayout from './components/Layout/MainLayout';
 import SplashProvider, {
   SplashContext,
@@ -29,6 +31,9 @@ import SplashProvider, {
 import Splash from './components/Splash/Splash';
 import LoginModal from './components/Login';
 import LoginModalProvider from './components/Login/LoginModalProvider';
+import AddItemModalProvider from './components/AddItemModal/AddItemModalProvider';
+import AddItemModal from './components/AddItemModal/AddItemModal';
+import CharacterContent from './components/CharacterContent/CharacterContent';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,29 +67,47 @@ if (rootElem) {
         <RecoilRoot>
           <SplashProvider>
             <LoginModalProvider>
-              <Splash />
-              <LoginModal />
-              <Router>
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <Auth>
-                        <MainLayout />
-                      </Auth>
-                    }
-                  >
-                    <Route path="dashboard" element={<Dashboard />} />
+              <AddItemModalProvider>
+                <Splash />
+                <LoginModal />
+                <Router>
+                  <Routes>
+                    <Route
+                      path="/"
+                      element={
+                        <Auth>
+                          <MainLayout />
+                        </Auth>
+                      }
+                    >
+                      <Route path="dashboard" element={<Dashboard />} />
+                      <Route
+                        path="character/:tokenName"
+                        element={<CharacterContent />}
+                      />
 
-                    {/* <Route path="char-setting" element={<CharSetting />} />
+                      {/* <Route path="char-setting" element={<CharSetting />} />
               <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
 
-                    <Route path="*" element={<Navigate to="/" />} />
-                  </Route>
-                </Routes>
-              </Router>
-              <ReactQueryDevtools position="bottom-right" />
+                      <Route path="*" element={<Navigate to="/" />} />
+                    </Route>
+                  </Routes>
+                </Router>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
+                <ReactQueryDevtools position="bottom-right" />
+              </AddItemModalProvider>
             </LoginModalProvider>
           </SplashProvider>
         </RecoilRoot>
