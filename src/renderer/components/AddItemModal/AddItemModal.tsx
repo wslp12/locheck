@@ -9,13 +9,19 @@ import useGetUserInfo from '../../api/get-user';
 import { AddItemModalContext } from './AddItemModalProvider';
 import AddItemModalP from './AddItemModalP';
 import usePostOrganization from '../../api/post-organization.api';
+import { SplashContext } from '../Splash/SplashProvider';
 
 function AddItemModal() {
   const navi = useNavigate();
   const addItemModalState = useContext(AddItemModalContext);
-  if (addItemModalState === null) return <></>;
+  const splashState = useContext(SplashContext);
+  if (addItemModalState === null || splashState === null) return <></>;
 
   const { hideModal, state } = addItemModalState;
+  const {
+    hideModal: hideSplashModal,
+    showModal: showSplashModal,
+  } = splashState;
 
   const [idValue, setIdValue] = useState('');
 
@@ -25,6 +31,7 @@ function AddItemModal() {
 
   const handleClickLogin: HandleClickLogin = () => {
     if (idValue === '' || !userState) return;
+    showSplashModal();
 
     postOrganization(
       {
@@ -33,6 +40,7 @@ function AddItemModal() {
       },
       {
         onSuccess: (res) => {
+          hideSplashModal();
           console.log(res);
           // .then((res) => {
           //   console.log(res);

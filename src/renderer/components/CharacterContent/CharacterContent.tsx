@@ -102,6 +102,7 @@ export default function CharacterContent() {
                       flexDirection: 'column',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      padding: '5px',
                     }}
                   >
                     <ProfileImg

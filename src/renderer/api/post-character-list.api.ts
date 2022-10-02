@@ -5,7 +5,10 @@ type Id = string;
 
 const postCharacterList = async (id: Id) => {
   const encodeId = encodeURI(id);
-  const url = `http://lochek.com:3000/parse/${encodeId}`;
+  const url =
+    process.env.locheck.R_RUN_MODE === 'local'
+      ? `http://localhost:3000/parse/${encodeId}`
+      : `http://lochek.com:3000/parse/${encodeId}`;
   return fetch(url, {
     method: 'POST',
   }).then((res) => {

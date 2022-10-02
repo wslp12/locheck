@@ -16,6 +16,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,7 @@ export const DashboardLnbItem = () => {
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="대시보드" />
+      <ListItemText primary="메인" />
     </ListItemButton>
   );
 };
@@ -59,18 +60,6 @@ export const DashboardLnbItem = () => {
 //   );
 // };
 
-export const mainListItems = (
-  <React.Fragment>
-    <DashboardLnbItem />
-    <ListItemButton>
-      <ListItemIcon>
-        <CalendarMonthIcon />
-      </ListItemIcon>
-      <ListItemText primary="주간 계정 퀘스트" />
-    </ListItemButton>
-  </React.Fragment>
-);
-
 // const secondaryRadeGuid = () => {
 //   const navigate = useNavigate();
 
@@ -86,6 +75,21 @@ export const mainListItems = (
 //     </ListItemButton>
 //   );
 // }
+
+export const CharacterSettingItem = () => {
+  const navi = useNavigate();
+  const handleClick = () => {
+    navi('/character/setting');
+  };
+  return (
+    <ListItemButton onClick={handleClick}>
+      <ListItemIcon>
+        <SettingsIcon />
+      </ListItemIcon>
+      <ListItemText primary="캐릭터 설정" />
+    </ListItemButton>
+  );
+};
 
 export const SecondaryListItems = () => {
   const addItemModalState = React.useContext(AddItemModalContext);
@@ -123,7 +127,7 @@ export const SecondaryListItems = () => {
         <ListItemIcon>
           <AddCircleIcon />
         </ListItemIcon>
-        <ListItemText primary="아이템 추가" />
+        <ListItemText primary="계정 추가" />
       </ListItemButton>
       {orgList?.map((item) => {
         return (
@@ -153,3 +157,10 @@ export const SecondaryListItems = () => {
     </React.Fragment>
   );
 };
+
+export const mainListItems = (
+  <React.Fragment>
+    <DashboardLnbItem />
+    <CharacterSettingItem />
+  </React.Fragment>
+);

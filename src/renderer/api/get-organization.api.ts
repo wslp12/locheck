@@ -16,7 +16,10 @@ export type OrgList = {
 
 async function getOrganization(name: string): Promise<OrgList[]> {
   const encodeId = encodeURI(name);
-  const url = `http://lochek.com:3000/oranization/${encodeId}`;
+  const url =
+    process.env.locheck.R_RUN_MODE === 'local'
+      ? `http://localhost:3000/oranization/${encodeId}`
+      : `http://lochek.com:3000/oranization/${encodeId}`;
 
   return fetch(url).then((res) => {
     return res.json();

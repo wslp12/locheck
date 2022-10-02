@@ -117,7 +117,7 @@ export default function MainLayout() {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                대시보드
+                메인
               </Typography>
               <IconButton color="inherit" onClick={showModal}>
                 <LoginIcon />

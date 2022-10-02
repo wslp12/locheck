@@ -10,9 +10,9 @@ function LoginBP(props: LoginBProps) {
         className="h-full flex flex-col items-center justify-center gap-3"
         style={{
           backgroundColor: '#fff',
-          height: '30%',
-          width: '30%',
-          padding: '6%',
+          height: '15%',
+          width: '20%',
+          padding: '2%',
           borderRadius: '0.5rem',
           boxShadow: '0px 0px 20px -10px black',
         }}

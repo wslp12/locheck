@@ -34,6 +34,7 @@ import LoginModalProvider from './components/Login/LoginModalProvider';
 import AddItemModalProvider from './components/AddItemModal/AddItemModalProvider';
 import AddItemModal from './components/AddItemModal/AddItemModal';
 import CharacterContent from './components/CharacterContent/CharacterContent';
+import CharSetting from './components/CharSetting/CharSetting';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -86,8 +87,11 @@ if (rootElem) {
                         element={<CharacterContent />}
                       />
 
-                      {/* <Route path="char-setting" element={<CharSetting />} />
-              <Route path="char-rade-setting" element={<CharRadeSetting />} />
+                      <Route
+                        path="character/setting"
+                        element={<CharSetting />}
+                      />
+                      {/* <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
 
                       <Route path="*" element={<Navigate to="/" />} />

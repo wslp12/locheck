@@ -6,7 +6,10 @@ type Id = string;
 
 const getUserInfo = async (id: Id) => {
   const encodeId = encodeURI(id);
-  const url = `http://lochek.com:3000/user/${encodeId}`;
+  const url =
+    process.env.locheck.R_RUN_MODE === 'local'
+      ? `http://localhost:3000/user/${encodeId}`
+      : `http://lochek.com:3000/user/${encodeId}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

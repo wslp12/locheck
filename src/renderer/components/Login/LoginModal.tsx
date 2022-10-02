@@ -6,12 +6,18 @@ import { HandleClickLogin, HandleIdChange } from './login.type';
 import { userAtomState } from '../../recoil/user.state';
 import useGetUserInfo from '../../api/get-user';
 import { LoginModalContext } from './LoginModalProvider';
+import { SplashContext } from '../Splash/SplashProvider';
 
 function LoginModal() {
   const loginModalState = useContext(LoginModalContext);
-  if (loginModalState === null) return <></>;
+  const splashState = useContext(SplashContext);
+  if (loginModalState === null || splashState === null) return <></>;
 
   const { hideModal, showModal, state } = loginModalState;
+  const {
+    hideModal: hideSplashModal,
+    showModal: showSplashModal,
+  } = splashState;
 
   const [idValue, setIdValue] = useState('');
 
@@ -21,8 +27,10 @@ function LoginModal() {
 
   const handleClickLogin: HandleClickLogin = () => {
     if (idValue === '') return;
+    showSplashModal();
 
     refetch().then((res) => {
+      hideSplashModal();
       if (res.data?.statusCode === 404 || !res.data?.token) return;
 
       console.log(res.data);

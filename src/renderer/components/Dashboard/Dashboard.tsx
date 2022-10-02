@@ -129,6 +129,7 @@ export default function DashboardContent() {
       {characterLsitState
         .slice()
         .sort((a, b) => b.itemLevel - a.itemLevel)
+        .filter((character) => character.display)
         .map((character) => {
           return (
             <Grid item xs={12} key={character.name}>
@@ -148,6 +149,7 @@ export default function DashboardContent() {
                       flexDirection: 'column',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      padding: '5px',
                     }}
                   >
                     <ProfileImg

@@ -15,8 +15,8 @@ function ProfileImg(props: {
       src={src}
       alt={alt}
       style={{
-        width: '60px',
-        height: '60px',
+        width: '90px',
+        height: '90px',
         maxWidth: '100px',
       }}
     />
