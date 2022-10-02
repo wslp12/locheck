@@ -76,22 +76,49 @@ function TodoListRead(props: { character: Character }) {
                 justifyContent: 'center',
                 alignItems: 'center',
                 position: 'relative',
+                padding: '5px',
               }}
             >
               <img
-                src={donePng}
+                src="http://lochek.com/done.png"
                 alt={todo.raid.name}
                 width={100}
                 style={{
+                  borderRadius: '45px',
+                  padding: '1px',
                   position: 'absolute',
                   display: `${todo.done ? 'block' : 'none'}`,
+                  top: '0px',
                 }}
               />
               <img
-                src={`http://lochek.com/${todo.raid.srcName}.png`}
+                src={`http://lochek.com/${todo.raid.srcName}`}
                 alt={todo.raid.name}
-                width={100}
+                style={{
+                  width: '90px',
+                  height: '90px',
+                  opacity: `${todo.done ? '0.35' : '1'}`,
+                  borderRadius: '45px',
+                  // padding: '1px',
+                  // backgroundColor: '#d50000',
+                  // border: '1px solid red',
+                }}
               />
+              <div
+                style={{
+                  fontSize: '14px',
+                  opacity: `${todo.done ? '0.35' : '1'}`,
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  width: '100%',
+                  overflow: 'hidden',
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  display: 'flex',
+                }}
+              >
+                {todo.raid.name}
+              </div>
               <GetGold todo={todo} user={character} />
             </div>
           );

@@ -6,7 +6,7 @@ import { Raid } from '../recoil/todo';
 type Id = string;
 
 const getRaidList = async () => {
-  const url = `http://localhost:3000/raid`;
+  const url = `http://lochek.com:3000/raid`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

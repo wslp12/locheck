@@ -7,7 +7,7 @@ type Id = string;
 
 async function postOrganization(name: string, gName: string) {
   const encodeId = encodeURI(gName);
-  const url = `http://localhost:3000/oranization/${encodeId}`;
+  const url = `http://lochek.com:3000/oranization/${encodeId}`;
 
   console.log(name, gName);
   const headers = new Headers();

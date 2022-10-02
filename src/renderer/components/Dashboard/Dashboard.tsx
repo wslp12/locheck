@@ -67,6 +67,27 @@ export default function DashboardContent() {
       return false;
     } else if (raid.name === '발탄[노말]' && character.itemLevel >= 1445) {
       return false;
+    } else if (raid.name === '카양겔[노말]' && character.itemLevel >= 1520) {
+      return false;
+    } else if (raid.name === '카양겔[하드][1]' && character.itemLevel >= 1560) {
+      return false;
+    } else if (raid.name === '카양겔[하드][2]' && character.itemLevel >= 1580) {
+      return false;
+    } else if (
+      raid.name === '아브렐슈드[노말][1-2]' &&
+      character.itemLevel >= 1540
+    ) {
+      return false;
+    } else if (
+      raid.name === '아브렐슈드[노말][3-4]' &&
+      character.itemLevel >= 1550
+    ) {
+      return false;
+    } else if (
+      raid.name === '아브렐슈드[노말][5-6]' &&
+      character.itemLevel >= 1560
+    ) {
+      return false;
     } else if (raid.level > character.itemLevel) {
       /**
        * 숙제 레벨이 유저 레벨보다 높으면 안보여준다

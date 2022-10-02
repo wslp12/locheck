@@ -6,7 +6,7 @@
 
 // const getCharacter = async (id: Id) => {
 //   const encodeId = encodeURI(id);
-//   const url = `http://localhost:3000/character/${encodeId}`;
+//   const url = `http://lochek.com:3000/character/${encodeId}`;
 //   return fetch(url, {
 //     method: 'GET',
 //   }).then((res) => {

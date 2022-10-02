@@ -44,6 +44,7 @@ export type Raid = {
   level: number;
   gold: number;
   groupName: string;
+  order: number;
 };
 
 export type TodoState = {
@@ -56,22 +57,22 @@ export type TodoState = {
 
 export type Todo = TodoState & { raid: Raid };
 
-const asdf: Todo[] = [
-  {
-    characterName: 'asd',
-    id: '',
-    display: true,
-    doneTime: '',
-    done: true,
-    raid: {
-      gold: 0,
-      groupName: 'asd',
-      level: 1400,
-      name: 'sdf',
-      srcName: 'asd123',
-    },
-  },
-];
+// const asdf: Todo[] = [
+//   {
+//     characterName: 'asd',
+//     id: '',
+//     display: true,
+//     doneTime: '',
+//     done: true,
+//     raid: {
+//       gold: 0,
+//       groupName: 'asd',
+//       level: 1400,
+//       name: 'sdf',
+//       srcName: 'asd123',
+//     },
+//   },
+// ];
 
 const todoState = atom({
   key: RECOIL_KEY.TODO_LIST,

@@ -4,7 +4,7 @@ import { QUERY_KEY } from '../enum';
 import { Todo } from '../recoil/todo';
 
 async function getTodoList(userName: string): Promise<Todo[]> {
-  const url = `http://localhost:3000/todo/${decodeURIComponent(userName)}`;
+  const url = `http://lochek.com:3000/todo/${decodeURIComponent(userName)}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

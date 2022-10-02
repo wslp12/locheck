@@ -9,7 +9,7 @@ async function getCharacterList(
   id: Id,
 ): Promise<Character[] | { statusCode: number; message: string }> {
   const encodeId = encodeURI(id);
-  const url = `http://localhost:3000/character-list/${encodeId}`;
+  const url = `http://lochek.com:3000/character-list/${encodeId}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {
@@ -21,7 +21,7 @@ async function getCharacterListByUserName(
   id: Id,
 ): Promise<Character[] | { statusCode: number; message: string }> {
   const encodeId = encodeURI(id);
-  const url = `http://localhost:3000/character-list/username/${encodeId}`;
+  const url = `http://lochek.com:3000/character-list/username/${encodeId}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

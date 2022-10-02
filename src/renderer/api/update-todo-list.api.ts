@@ -7,7 +7,7 @@ const updateTodoList = async (
   id: Id,
   formData: { done: boolean; doneTime: string },
 ) => {
-  const url = `http://localhost:3000/todo/groupname/${id.groupName}/charactername/${id.characterName}`;
+  const url = `http://lochek.com:3000/todo/groupname/${id.groupName}/charactername/${id.characterName}`;
   return fetch(url, {
     method: 'PATCH',
     headers: {
