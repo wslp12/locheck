@@ -18,6 +18,7 @@ import { userAtomState } from '../../recoil/user.state';
 import { Character } from '../../recoil/character-list.state';
 import useUpdateTodo from '../../api/update-todo.api';
 import useUpdateTodoList from '../../api/update-todo-list.api';
+import { toast } from 'react-toastify';
 
 const GetGold = (props: { todo: Todo; user: any }) => {
   const { user, todo } = props;
@@ -70,7 +71,7 @@ function TodoList(props: { character: Character }) {
         {
           onSuccess: async (res) => {
             const result: TodoState[] = await res.json();
-            console.log(result);
+            console.log('result', result);
             result.forEach((resultItem) => {
               setUserInfo((ps) =>
                 produce(ps, (ds) => {
@@ -85,6 +86,12 @@ function TodoList(props: { character: Character }) {
                 }),
               );
             });
+          },
+          onError(error, variables, context) {
+            console.log('error', error);
+            toast.error(
+              '윤지용이 돈을 안줘서 서버비용이 없어서 죽어 있습니다.',
+            );
           },
         },
       );
