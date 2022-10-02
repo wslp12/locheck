@@ -14,12 +14,8 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import { useParams } from 'react-router-dom';
 
-import { Todo, TodoState, todoState } from '../../recoil/todo';
-import donePng from '../../assets/done.png';
-import { userAtomState } from '../../recoil/user.state';
+import { Todo } from '../../recoil/todo';
 import { Character } from '../../recoil/character-list.state';
-import useUpdateTodo from '../../api/update-todo.api';
-import useUpdateTodoList from '../../api/update-todo-list.api';
 import useGetTodoList from '../../api/get-todo-list.api';
 
 const GetGold = (props: { todo: Todo; user: any }) => {
@@ -53,8 +49,6 @@ function TodoListRead(props: { character: Character }) {
   const { tokenName } = useParams();
 
   const { data: todoList } = useGetTodoList(tokenName ?? '');
-
-  console.log('todoList', todoList);
 
   return (
     <>

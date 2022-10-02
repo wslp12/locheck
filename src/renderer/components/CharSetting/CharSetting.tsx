@@ -6,12 +6,14 @@ import produce from 'immer';
 import React from 'react';
 import { Switch } from '@mui/material';
 import { useRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
 import characterLsitAtomState, {
   Character,
 } from '../../recoil/character-list.state';
-import { todoState } from '../../recoil/todo';
+import { Todo, todoState } from '../../recoil/todo';
 import { userAtomState } from '../../recoil/user.state';
 import useUpdateCharacter from '../../api/update-character.api';
+import useUpdateTodo from '../../api/update-todo.api';
 
 function CharSetting() {
   const [charInfo, setCharInfo] = useRecoilState(characterLsitAtomState);
@@ -34,7 +36,6 @@ function CharSetting() {
         { name: char.name, display: !char.display },
         {
           onSuccess: (res: Character) => {
-            console.log('res', res);
             setCharInfo((ps) =>
               produce(ps, (ds) => {
                 const fidx = ds.findIndex((item) => item.name === res.name);
@@ -84,6 +85,49 @@ function RaidSetting(props: { character: Character }) {
 
   const [todoList, setTodoList] = useRecoilState(todoState);
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
+  const { mutate: updateTodo } = useUpdateTodo();
+
+  const handleDisplayClick = (todo: Todo) => {
+    console.log('todo', todo);
+    if (userInfo === null) {
+      setTodoList((ps) =>
+        produce(ps, (ds) => {
+          if (!ds) return;
+          const todoIdx = ds.findIndex((item) => item.id === todo.id);
+          console.log('todoIdx', todoIdx);
+          if (todoIdx > -1) {
+            ds[todoIdx].display = !ds[todoIdx].display;
+          }
+        }),
+      );
+    } else {
+      updateTodo(
+        { id: +todo.id, formData: { display: !todo.display } },
+        {
+          onSuccess: (res) => {
+            if ('statusCode' in res) {
+              toast.error('윤지용 때문에 서버가 죽었습니다. 돈이 없습니다');
+            }
+            setUserInfo((ps) =>
+              produce(ps, (ds) => {
+                if (!ds) return;
+                const todoIdx = ds.todoList.findIndex(
+                  (item) => item.id === res.id,
+                );
+                if (todoIdx > -1) {
+                  ds.todoList[todoIdx].display = res.display;
+                }
+              }),
+            );
+            console.log('res', res);
+          },
+          onError(error, variables, context) {
+            toast.error('윤지용 때문에 서버가 죽었습니다. 돈이 없습니다');
+          },
+        },
+      );
+    }
+  };
 
   return (
     <>
@@ -97,7 +141,7 @@ function RaidSetting(props: { character: Character }) {
                 <div>
                   <Switch
                     defaultChecked={todo.display}
-                    // onClick={() => handleDisplayClick(char.name)}
+                    onClick={() => handleDisplayClick(todo)}
                   />
                 </div>
               </div>

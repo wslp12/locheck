@@ -44,7 +44,6 @@ function AddItemModal() {
       {
         onSuccess: (res) => {
           hideSplashModal();
-          console.log(res);
           if (res.statusCode) {
             toast.error(`윤지용이 돈을 안 줘서 서버가 죽었습니다.`);
           } else {

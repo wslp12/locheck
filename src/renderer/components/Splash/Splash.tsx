@@ -8,8 +8,6 @@ function Splash() {
 
   const { hideModal, showModal, state } = splashState;
 
-  console.log('%cstate', 'color: purple', state);
-
   return state ? (
     <div
       id="asdfasdfasdf"

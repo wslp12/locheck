@@ -1,12 +1,9 @@
 /* eslint-disable no-promise-executor-return */
 import { useMutation } from '@tanstack/react-query';
 
-type Id = { groupName: string; characterName: string };
+type Id = number;
 
-const updateTodo = async (
-  id: Id,
-  formData: { done: boolean; doneTime: string },
-) => {
+const updateTodo = async (id: Id, formData: { display: boolean }) => {
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/todo/${id}`
@@ -18,19 +15,14 @@ const updateTodo = async (
     },
     body: JSON.stringify(formData),
   }).then((res) => {
-    return res;
+    return res.json();
   });
 };
 
 const useUpdateTodo = () => {
   return useMutation(
-    ({
-      id,
-      formData,
-    }: {
-      id: Id;
-      formData: { done: boolean; doneTime: string };
-    }) => updateTodo(id, formData),
+    ({ id, formData }: { id: Id; formData: { display: boolean } }) =>
+      updateTodo(id, formData),
   );
 };
 

@@ -12,7 +12,6 @@ async function postOrganization(name: string, gName: string) {
       ? `http://localhost:3000/oranization/${encodeId}`
       : `http://lochek.com:3000/oranization/${encodeId}`;
 
-  console.log(name, gName);
   const headers = new Headers();
   headers.append('name', encodeURIComponent(name));
   return fetch(url, {

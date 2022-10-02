@@ -27,7 +27,6 @@ function AddItemModalP(props: any) {
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
-            console.log(2);
           }}
         >
           <TextField

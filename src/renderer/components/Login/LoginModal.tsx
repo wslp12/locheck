@@ -39,7 +39,6 @@ function LoginModal() {
       }
       toast.success('로그인에 성공 했습니다.');
 
-      console.log(res.data);
       hideModal();
       setUserState(res.data);
     });
