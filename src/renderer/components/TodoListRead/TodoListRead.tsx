@@ -63,6 +63,9 @@ function TodoListRead(props: { character: Character }) {
         .filter((todo) => {
           return todo.display;
         })
+        .sort((a, b) => {
+          return a.raid.order - b.raid.order;
+        })
         .map((todo) => {
           return (
             <div

@@ -3,6 +3,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
+
 import { HandleClickLogin, HandleIdChange } from './add-item-modal.type';
 import { userAtomState } from '../../recoil/user.state';
 import useGetUserInfo from '../../api/get-user';
@@ -15,6 +17,7 @@ function AddItemModal() {
   const navi = useNavigate();
   const addItemModalState = useContext(AddItemModalContext);
   const splashState = useContext(SplashContext);
+  const queryClient = useQueryClient();
   if (addItemModalState === null || splashState === null) return <></>;
 
   const { hideModal, state } = addItemModalState;
@@ -42,16 +45,14 @@ function AddItemModal() {
         onSuccess: (res) => {
           hideSplashModal();
           console.log(res);
-          // .then((res) => {
-          //   console.log(res);
-          //   if (res.data?.statusCode === 404) {
-          //     toast.error('사용자가 계정 등록을 하지 않았습니다');
-          //   } else {
+          if (res.statusCode) {
+            toast.error(`윤지용이 돈을 안 줘서 서버가 죽었습니다.`);
+          } else {
+            toast.success(`${idValue} 계정을 성공적으로 등록 했습니다.`);
+            navi(`/character/${idValue}`);
+            queryClient.invalidateQueries(['ORG_LIST']);
+          }
           hideModal();
-          navi(`/character/${idValue}`);
-          //   }
-
-          //   // setUserState(res.data);
         },
       },
     );

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useSetRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
+
 import { useNavigate } from 'react-router-dom';
 import LoginP from './LoginP';
 import { HandleClickLogin, HandleIdChange } from './login.type';
@@ -31,7 +33,11 @@ function LoginModal() {
 
     refetch().then((res) => {
       hideSplashModal();
-      if (res.data?.statusCode === 404 || !res.data?.token) return;
+      if (res.data?.statusCode === 404 || !res.data?.token) {
+        toast.error('서버비용이 없어서 죽어 있습니다.');
+        return;
+      }
+      toast.success('로그인에 성공 했습니다.');
 
       console.log(res.data);
       hideModal();
