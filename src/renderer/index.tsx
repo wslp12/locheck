@@ -62,62 +62,59 @@ if (rootElem) {
   const Router =
     userAgent.indexOf(' electron/') > -1 ? HashRouter : BrowserRouter;
 
+  // <React.StrictMode>
   root.render(
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <SplashProvider>
-            <LoginModalProvider>
-              <AddItemModalProvider>
-                <Splash />
-                <LoginModal />
-                <Router>
-                  <Routes>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <SplashProvider>
+          <LoginModalProvider>
+            <AddItemModalProvider>
+              <Splash />
+              <LoginModal />
+              <Router>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Auth>
+                        <MainLayout />
+                      </Auth>
+                    }
+                  >
+                    <Route path="dashboard" element={<Dashboard />} />
                     <Route
-                      path="/"
-                      element={
-                        <Auth>
-                          <MainLayout />
-                        </Auth>
-                      }
-                    >
-                      <Route path="dashboard" element={<Dashboard />} />
-                      <Route
-                        path="character/:tokenName"
-                        element={<CharacterContent />}
-                      />
+                      path="character/:tokenName"
+                      element={<CharacterContent />}
+                    />
 
-                      <Route
-                        path="character/setting"
-                        element={<CharSetting />}
-                      />
-                      {/* <Route path="char-rade-setting" element={<CharRadeSetting />} />
+                    <Route path="character/setting" element={<CharSetting />} />
+                    {/* <Route path="char-rade-setting" element={<CharRadeSetting />} />
               <Route path="sort-setting" element={<SortSetting />} /> */}
 
-                      <Route path="*" element={<Navigate to="/" />} />
-                    </Route>
-                  </Routes>
-                </Router>
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                />
-                <ReactQueryDevtools position="bottom-right" />
-              </AddItemModalProvider>
-            </LoginModalProvider>
-          </SplashProvider>
-        </RecoilRoot>
-      </QueryClientProvider>
-    </React.StrictMode>,
+                    <Route path="*" element={<Navigate to="/" />} />
+                  </Route>
+                </Routes>
+              </Router>
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+              />
+              <ReactQueryDevtools position="bottom-right" />
+            </AddItemModalProvider>
+          </LoginModalProvider>
+        </SplashProvider>
+      </RecoilRoot>
+    </QueryClientProvider>,
   );
+  // </React.StrictMode>
 } else {
   console.error(
     `${rootElem} 가 존재하지 않습니다. (${id} 가 존재하지 않을 수도 있습니다)`,

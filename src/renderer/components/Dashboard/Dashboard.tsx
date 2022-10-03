@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 // /* eslint-disable react/jsx-indent */
 // /* eslint-disable no-param-reassign */
@@ -28,6 +30,15 @@ import isToday from 'dayjs/plugin/isToday';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isBetween from 'dayjs/plugin/isBetween';
 
+import {
+  DragDropContext,
+  Draggable,
+  DraggingStyle,
+  Droppable,
+  DropResult,
+  NotDraggingStyle,
+} from 'react-beautiful-dnd';
+
 import ProfileImg from '../ProfileImg';
 
 import TodoList from '../TodoList/TodoList';
@@ -45,6 +56,19 @@ dayjs.extend(isSameOrAfter);
 dayjs.extend(isTomorrow);
 dayjs.extend(isToday);
 dayjs.extend(isBetween);
+
+// a little function to help us with reordering the result
+const reorder = (
+  list: Character[],
+  startIndex: number,
+  endIndex: number,
+): Character[] => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 export default function DashboardContent() {
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
@@ -124,60 +148,104 @@ export default function DashboardContent() {
     });
   }, [raidList, characterLsitState]);
 
+  const onDragEnd = (result: DropResult): void => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const items: Character[] = reorder(
+      characterLsitState,
+      result.source.index,
+      result.destination.index,
+    );
+
+    console.log('items', items);
+
+    setCharacterLsitState(
+      items.map((item, index) => ({ ...item, order: index })),
+    );
+    // setState(items);
+  };
+
   return (
-    <Grid container spacing={2}>
-      {characterLsitState
-        .slice()
-        .sort((a, b) => b.itemLevel - a.itemLevel)
-        .filter((character) => character.display)
-        .map((character) => {
-          return (
-            <Grid item xs={12} key={character.name}>
-              <Paper sx={{ p: 1, display: 'flex', flexDirection: 'column' }}>
-                <div
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="droppable">
+        {(provided, snapshot): JSX.Element => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            <Grid container spacing={2}>
+              {characterLsitState.map((character, index) => (
+                <Draggable
                   key={character.name}
-                  style={{
-                    display: 'flex',
-                    margin: '0px',
-                    padding: '0px',
-                    overflow: 'auto',
-                  }}
+                  draggableId={character.name}
+                  index={index}
                 >
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: '5px',
-                    }}
-                  >
-                    <ProfileImg
-                      src={character.jobProfileSrc}
-                      alt={character.name}
-                      // onClick={(e) => console.log(e)}
-                    />
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontSize: '14px',
-                      }}
+                  {(provided, snapshot): JSX.Element => (
+                    <Grid
+                      item
+                      xs={12}
+                      key={character.name}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
                     >
-                      <span>{character.name}</span>
-                      <span>{character.itemLevel}</span>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex' }}>
-                    <TodoList character={character} />
-                  </div>
-                </div>
-              </Paper>
+                      <Paper
+                        sx={{
+                          p: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
+                      >
+                        <div
+                          key={character.name}
+                          style={{
+                            display: 'flex',
+                            margin: '0px',
+                            padding: '0px',
+                            overflow: 'auto',
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '5px',
+                            }}
+                          >
+                            <ProfileImg
+                              src={character.jobProfileSrc}
+                              alt={character.name}
+                              // onClick={(e) => console.log(e)}
+                            />
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                fontSize: '14px',
+                              }}
+                            >
+                              <span>{character.name}</span>
+                              <span>{character.itemLevel}</span>
+                            </div>
+                          </div>
+                          <div style={{ display: 'flex' }}>
+                            <TodoList character={character} />
+                          </div>
+                        </div>
+                      </Paper>
+                    </Grid>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
             </Grid>
-          );
-        })}
-    </Grid>
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }

@@ -26,6 +26,7 @@ export type Character = {
   level: number;
   name: string;
   profileSrc: string;
+  order: number;
 };
 
 const characterLsitAtomState = atom({
