@@ -12,7 +12,7 @@ async function getCharacterList(
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/character-list/${encodeId}`
-      : `http://lochek.com:3000/character-list/${encodeId}`;
+      : `http://www.lochek.site:3000/character-list/${encodeId}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {
@@ -27,7 +27,7 @@ async function getCharacterListByUserName(
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/character-list/username/${encodeId}`
-      : `http://lochek.com:3000/character-list/username/${encodeId}`;
+      : `http://www.lochek.site:3000/character-list/username/${encodeId}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

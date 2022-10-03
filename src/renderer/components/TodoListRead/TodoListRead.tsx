@@ -77,7 +77,7 @@ function TodoListRead(props: { character: Character }) {
               }}
             >
               <img
-                src="http://lochek.com/done.png"
+                src="http://www.lochek.site/done.png"
                 alt={todo.raid.name}
                 width={100}
                 style={{
@@ -89,7 +89,7 @@ function TodoListRead(props: { character: Character }) {
                 }}
               />
               <img
-                src={`http://lochek.com/${todo.raid.srcName}`}
+                src={`http://www.lochek.site/${todo.raid.srcName}`}
                 alt={todo.raid.name}
                 style={{
                   width: '90px',

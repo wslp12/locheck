@@ -12,7 +12,7 @@ async function updateCharacter(
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/character/${encodeId}`
-      : `http://lochek.com:3000/character/${encodeId}`;
+      : `http://www.lochek.site:3000/character/${encodeId}`;
 
   return fetch(url, {
     method: 'PATCH',

@@ -10,7 +10,7 @@ const updateTodoList = async (
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/todo/groupname/${id.groupName}/charactername/${id.characterName}`
-      : `http://lochek.com:3000/todo/groupname/${id.groupName}/charactername/${id.characterName}`;
+      : `http://www.lochek.site:3000/todo/groupname/${id.groupName}/charactername/${id.characterName}`;
   return fetch(url, {
     method: 'PATCH',
     headers: {

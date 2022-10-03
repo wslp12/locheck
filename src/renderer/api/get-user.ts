@@ -9,7 +9,7 @@ const getUserInfo = async (id: Id) => {
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/user/${encodeId}`
-      : `http://lochek.com:3000/user/${encodeId}`;
+      : `http://www.lochek.site:3000/user/${encodeId}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

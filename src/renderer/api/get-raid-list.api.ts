@@ -9,7 +9,7 @@ const getRaidList = async () => {
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/raid`
-      : `http://lochek.com:3000/raid`;
+      : `http://www.lochek.site:3000/raid`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

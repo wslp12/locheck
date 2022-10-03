@@ -7,7 +7,7 @@ async function getTodoList(userName: string): Promise<Todo[]> {
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/todo/${decodeURIComponent(userName)}`
-      : `http://lochek.com:3000/todo/${decodeURIComponent(userName)}`;
+      : `http://www.lochek.site:3000/todo/${decodeURIComponent(userName)}`;
   return fetch(url, {
     method: 'GET',
   }).then((res) => {

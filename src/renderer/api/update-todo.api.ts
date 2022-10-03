@@ -7,7 +7,7 @@ const updateTodo = async (id: Id, formData: { display: boolean }) => {
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/todo/${id}`
-      : `http://lochek.com:3000/todo/${id}`;
+      : `http://www.lochek.site:3000/todo/${id}`;
   return fetch(url, {
     method: 'PATCH',
     headers: {

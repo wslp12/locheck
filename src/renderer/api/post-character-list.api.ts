@@ -8,7 +8,7 @@ const postCharacterList = async (id: Id) => {
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
       ? `http://localhost:3000/parse/${encodeId}`
-      : `http://lochek.com:3000/parse/${encodeId}`;
+      : `http://www.lochek.site:3000/parse/${encodeId}`;
   return fetch(url, {
     method: 'POST',
   }).then((res) => {
