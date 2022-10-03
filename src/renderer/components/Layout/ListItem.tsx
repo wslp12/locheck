@@ -123,11 +123,17 @@ export const SecondaryListItems = () => {
       {/* <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader> */}
+      <ListItemButton onClick={() => navi('/private')}>
+        <ListItemIcon>
+          <AddCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary="private" />
+      </ListItemButton>
       <ListItemButton onClick={handleGetUserInfo}>
         <ListItemIcon>
           <AddCircleIcon />
         </ListItemIcon>
-        <ListItemText primary="계정 추가" />
+        <ListItemText primary="토큰 추가" />
       </ListItemButton>
       {orgList?.map((item) => {
         return (

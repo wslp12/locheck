@@ -35,6 +35,7 @@ import AddItemModalProvider from './components/AddItemModal/AddItemModalProvider
 import AddItemModal from './components/AddItemModal/AddItemModal';
 import CharacterContent from './components/CharacterContent/CharacterContent';
 import CharSetting from './components/CharSetting/CharSetting';
+import Private from './components/Private/Private';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,6 +83,7 @@ if (rootElem) {
                     }
                   >
                     <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="private" element={<Private />} />
                     <Route
                       path="character/:tokenName"
                       element={<CharacterContent />}
