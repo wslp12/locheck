@@ -6,13 +6,13 @@ function Private() {
       ? `http://localhost:3000`
       : `http://www.lochek.site:3000`;
   const handleDayCal = () => {
-    fetch(`${url}/private/day`, {
+    fetch(`${url}/todo/private/day`, {
       method: 'POST',
     });
   };
 
   const handleWeekCall = () => {
-    fetch(`${url}/private/week`, {
+    fetch(`${url}/todo/private/week`, {
       method: 'POST',
     });
   };
