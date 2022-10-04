@@ -174,73 +174,76 @@ export default function DashboardContent() {
         {(provided, snapshot): JSX.Element => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             <Grid container spacing={2}>
-              {characterLsitState.map((character, index) => (
-                <Draggable
-                  key={character.name}
-                  draggableId={character.name}
-                  index={index}
-                >
-                  {(provided, snapshot): JSX.Element => (
-                    <Grid
-                      item
-                      xs={12}
-                      key={character.name}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <Paper
-                        sx={{
-                          p: 1,
-                          display: 'flex',
-                          flexDirection: 'column',
-                        }}
+              {characterLsitState
+                ?.slice()
+                .sort((a, b) => a.order - b.order)
+                .map((character, index) => (
+                  <Draggable
+                    key={character.name}
+                    draggableId={character.name}
+                    index={index}
+                  >
+                    {(provided, snapshot): JSX.Element => (
+                      <Grid
+                        item
+                        xs={12}
+                        key={character.name}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
                       >
-                        <div
-                          key={character.name}
-                          style={{
+                        <Paper
+                          sx={{
+                            p: 1,
                             display: 'flex',
-                            margin: '0px',
-                            padding: '0px',
-                            overflow: 'auto',
+                            flexDirection: 'column',
                           }}
                         >
                           <div
+                            key={character.name}
                             style={{
                               display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              padding: '5px',
+                              margin: '0px',
+                              padding: '0px',
+                              overflow: 'auto',
                             }}
                           >
-                            <ProfileImg
-                              src={character.jobProfileSrc}
-                              alt={character.name}
-                              // onClick={(e) => console.log(e)}
-                            />
                             <div
                               style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                fontSize: '14px',
+                                padding: '5px',
                               }}
                             >
-                              <span>{character.name}</span>
-                              <span>{character.itemLevel}</span>
+                              <ProfileImg
+                                src={character.jobProfileSrc}
+                                alt={character.name}
+                                // onClick={(e) => console.log(e)}
+                              />
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  fontSize: '14px',
+                                }}
+                              >
+                                <span>{character.name}</span>
+                                <span>{character.itemLevel}</span>
+                              </div>
+                            </div>
+                            <div style={{ display: 'flex' }}>
+                              <TodoList character={character} />
                             </div>
                           </div>
-                          <div style={{ display: 'flex' }}>
-                            <TodoList character={character} />
-                          </div>
-                        </div>
-                      </Paper>
-                    </Grid>
-                  )}
-                </Draggable>
-              ))}
+                        </Paper>
+                      </Grid>
+                    )}
+                  </Draggable>
+                ))}
               {provided.placeholder}
             </Grid>
           </div>

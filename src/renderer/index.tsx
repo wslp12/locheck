@@ -36,6 +36,7 @@ import AddItemModal from './components/AddItemModal/AddItemModal';
 import CharacterContent from './components/CharacterContent/CharacterContent';
 import CharSetting from './components/CharSetting/CharSetting';
 import Private from './components/Private/Private';
+import RaidInfo from './components/RaidInfo/RaidInfo';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -84,6 +85,7 @@ if (rootElem) {
                   >
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="private" element={<Private />} />
+                    <Route path="raidinfo" element={<RaidInfo />} />
                     <Route
                       path="character/:tokenName"
                       element={<CharacterContent />}

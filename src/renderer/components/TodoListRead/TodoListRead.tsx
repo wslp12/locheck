@@ -85,7 +85,6 @@ function TodoListRead(props: { character: Character }) {
                   padding: '1px',
                   position: 'absolute',
                   display: `${todo.done ? 'block' : 'none'}`,
-                  top: '0px',
                 }}
               />
               <img
@@ -101,22 +100,6 @@ function TodoListRead(props: { character: Character }) {
                   // border: '1px solid red',
                 }}
               />
-              <div
-                style={{
-                  fontSize: '14px',
-                  opacity: `${todo.done ? '0.35' : '1'}`,
-                  whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',
-                  width: '100%',
-                  overflow: 'hidden',
-                  textAlign: 'center',
-                  justifyContent: 'center',
-                  display: 'flex',
-                }}
-              >
-                {todo.raid.name}
-              </div>
-              <GetGold todo={todo} user={character} />
             </div>
           );
         })}

@@ -16,8 +16,10 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import SecurityIcon from '@mui/icons-material/Security';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -43,38 +45,6 @@ export const DashboardLnbItem = () => {
     </ListItemButton>
   );
 };
-
-// export const OnedayQuestLnbItem = () => {
-//   const navigate = useNavigate();
-
-//   const handleClickButton = () => {
-//     navigate('/oneday-quest');
-//   };
-//   return (
-//     <ListItemButton onClick={handleClickButton}>
-//       <ListItemIcon>
-//         <CalendarTodayIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="일일 퀘스트" />
-//     </ListItemButton>
-//   );
-// };
-
-// const secondaryRadeGuid = () => {
-//   const navigate = useNavigate();
-
-//   const handleClickButton = () => {
-//     navigate('/oneday-quest');
-//   };
-//   return (
-//     <ListItemButton onClick={handleClickButton}>
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="쿠쿠빙고" />
-//     </ListItemButton>
-//   );
-// }
 
 export const CharacterSettingItem = () => {
   const navi = useNavigate();
@@ -118,17 +88,9 @@ export const SecondaryListItems = () => {
   const handleClickGuser = (name: string) => {
     navi(`/character/${name}`);
   };
+
   return (
     <React.Fragment>
-      {/* <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader> */}
-      <ListItemButton onClick={() => navi('/private')}>
-        <ListItemIcon>
-          <AddCircleIcon />
-        </ListItemIcon>
-        <ListItemText primary="private" />
-      </ListItemButton>
       <ListItemButton onClick={handleGetUserInfo}>
         <ListItemIcon>
           <AddCircleIcon />
@@ -148,19 +110,33 @@ export const SecondaryListItems = () => {
           </ListItemButton>
         );
       })}
-      {/* <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton> */}
     </React.Fragment>
+  );
+};
+
+const PrivateIcon = () => {
+  const navi = useNavigate();
+
+  return (
+    <ListItemButton onClick={() => navi('/private')}>
+      <ListItemIcon>
+        <SecurityIcon />
+      </ListItemIcon>
+      <ListItemText primary="private" />
+    </ListItemButton>
+  );
+};
+
+const RaidInfo = () => {
+  const navi = useNavigate();
+
+  return (
+    <ListItemButton onClick={() => navi('/raidinfo')}>
+      <ListItemIcon>
+        <AutoStoriesIcon />
+      </ListItemIcon>
+      <ListItemText primary="레이드 보상 정보" />
+    </ListItemButton>
   );
 };
 
@@ -168,5 +144,7 @@ export const mainListItems = (
   <React.Fragment>
     <DashboardLnbItem />
     <CharacterSettingItem />
+    <RaidInfo />
+    <PrivateIcon />
   </React.Fragment>
 );
