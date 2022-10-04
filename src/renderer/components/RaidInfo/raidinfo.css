@@ -1,0 +1,20 @@
+.raid-info > th,
+td {
+  border: 1px solid black;
+}
+
+.raid-info > th {
+  border: 1px solid black;
+}
+
+.raid-info th {
+  border: 1px solid black;
+}
+
+#raid-info td {
+  border: 1px solid black;
+}
+
+#raid-info > tr {
+  border: 1px solid black;
+}
