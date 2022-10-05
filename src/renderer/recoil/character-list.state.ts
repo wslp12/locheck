@@ -32,7 +32,6 @@ export type Character = {
 const characterLsitAtomState = atom({
   key: RECOIL_KEY.CHARACTER_LIST,
   default: <Character[]>[],
-  effects: [localStorageEffect(RECOIL_KEY.CHARACTER_LIST)],
 });
 
 export default characterLsitAtomState;
