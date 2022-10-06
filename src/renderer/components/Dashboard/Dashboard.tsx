@@ -50,6 +50,7 @@ import characterLsitAtomState, {
 } from '../../recoil/character-list.state';
 import useGetRaidList from '../../api/get-raid-list.api';
 import { userAtomState } from '../../recoil/user.state';
+import useGetUserInfo from '../../api/get-user';
 
 dayjs.extend(isYesterday);
 dayjs.extend(isSameOrAfter);
@@ -72,6 +73,7 @@ const reorder = (
 
 export default function DashboardContent() {
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
+  const { data, refetch } = useGetUserInfo(userInfo?.name ?? '');
   const [todoList, setTodoList] = useRecoilState(todoState);
 
   const [characterLsitState, setCharacterLsitState] = useRecoilState(
@@ -80,11 +82,10 @@ export default function DashboardContent() {
 
   const { data: raidList } = useGetRaidList(true);
 
-  // const charList = characterLsitState
-  //   .filter((user) => {
-  //     return user.display;
-  //   })
-  //   .sort((a, b) => b.itemLevel - a.itemLevel);
+  const charList =
+    characterLsitState.length > 0
+      ? characterLsitState
+      : userInfo?.characterList;
 
   const getDisplay = (character: Character, raid: Raid) => {
     if (raid.name === '비아키스[노말]' && character.itemLevel >= 1460) {
@@ -148,6 +149,11 @@ export default function DashboardContent() {
     });
   }, [raidList, characterLsitState]);
 
+  React.useEffect(() => {
+    if (userInfo?.name !== '') {
+      refetch();
+    }
+  }, [userInfo?.name]);
   const onDragEnd = (result: DropResult): void => {
     // dropped outside the list
     if (!result.destination) {
@@ -174,7 +180,7 @@ export default function DashboardContent() {
         {(provided, snapshot): JSX.Element => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             <Grid container spacing={2}>
-              {characterLsitState
+              {charList
                 ?.slice()
                 .sort((a, b) => a.order - b.order)
                 .map((character, index) => (

@@ -40,7 +40,6 @@ import { Raid, todoState } from '../../recoil/todo';
 import characterLsitAtomState, {
   Character,
 } from '../../recoil/character-list.state';
-import useGetRaidList from '../../api/get-raid-list.api';
 import { userAtomState } from '../../recoil/user.state';
 import useGetCharacterList, {
   useGetCharacterList2,

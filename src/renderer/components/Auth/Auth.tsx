@@ -28,9 +28,10 @@ function Auth(props: any) {
   const navigate = useNavigate();
   // const location = useLocation();
   const characterLsitState = useRecoilValue(characterLsitAtomState);
+  const userState = useRecoilValue(userAtomState);
 
   useEffect(() => {
-    if (characterLsitState.length === 0) {
+    if (characterLsitState.length > 0 || userState !== null) {
       navigate('/dashboard');
     }
   }, [characterLsitState]);
@@ -38,7 +39,7 @@ function Auth(props: any) {
   // return <MainLayout />;
   return (
     <>
-      {characterLsitState.length === 0 && (
+      {characterLsitState.length === 0 && userState === null && (
         <div>
           <Backdrop sx={{ color: '#fff', zIndex: (theme) => 1201 }} open>
             <LoginBC />

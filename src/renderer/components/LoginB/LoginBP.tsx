@@ -3,7 +3,13 @@ import { Button, TextField } from '@mui/material';
 import { LoginBProps } from './login.type';
 
 function LoginBP(props: LoginBProps) {
-  const { onClickLogin, onChangeId, idValue } = props;
+  const {
+    onClickLogin,
+    onChangeCharacterName,
+    characterName,
+    onChangeTokenValue,
+    tokenValue,
+  } = props;
   return (
     <div className="h-full w-full flex flex-col items-center justify-center gap-3">
       <div
@@ -12,25 +18,26 @@ function LoginBP(props: LoginBProps) {
           backgroundColor: '#fff',
           height: '25%',
           width: '20%',
-          padding: '2%',
+          padding: '2rem',
           borderRadius: '0.5rem',
           boxShadow: '0px 0px 20px -10px black',
         }}
       >
         <TextField
-          value={idValue}
-          onChange={onChangeId}
+          required
+          value={characterName}
+          onChange={onChangeCharacterName}
           id="standard-basic"
-          label="캐릭터명을 입력 해주세요"
+          label="캐릭터명을 입력 해주세요(필수값)"
           variant="standard"
           className="w-full"
         />
         <TextField
-          value={idValue}
-          onChange={onChangeId}
+          value={tokenValue}
+          onChange={onChangeTokenValue}
           id="standard-basic"
-          label="토큰을 입력해주세요 (옵션)"
-          variant="standard"
+          label="토큰을 입력해주세요"
+          variant="filled"
           className="w-full"
         />
         <Button

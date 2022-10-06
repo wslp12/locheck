@@ -2,6 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import { atom } from 'recoil';
 import { RECOIL_KEY } from '../enum';
+import { Character } from './character-list.state';
 import { Todo } from './todo';
 
 const localStorageEffect =
@@ -21,7 +22,14 @@ const localStorageEffect =
 
 const userAtomState = atom({
   key: RECOIL_KEY.USER,
-  default: <{ name: string; token: string; todoList: Todo[] } | null>null,
+  default: <
+    {
+      name: string;
+      token: string;
+      todoList: Todo[];
+      characterList: Character[];
+    } | null
+  >null,
   effects: [localStorageEffect(RECOIL_KEY.USER)],
 });
 

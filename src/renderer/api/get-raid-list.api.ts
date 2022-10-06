@@ -1,5 +1,6 @@
 /* eslint-disable no-promise-executor-return */
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { QUERY_KEY } from '../enum';
 import { Raid } from '../recoil/todo';
 
@@ -20,6 +21,9 @@ const getRaidList = async () => {
 const useGetRaidList = (isFetch: boolean) => {
   return useQuery([QUERY_KEY.RAID_LIST], getRaidList, {
     enabled: isFetch,
+    onError: () => {
+      toast.error('서버가 죽었습니다');
+    },
   });
 };
 

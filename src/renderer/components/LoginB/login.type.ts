@@ -6,8 +6,10 @@ type HandleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 type LoginBProps = {
   onClickLogin: HandleClickLogin;
-  onChangeId: HandleIdChange;
-  idValue: string;
+  onChangeCharacterName: HandleIdChange;
+  characterName: string;
+  onChangeTokenValue: HandleIdChange;
+  tokenValue: string;
 };
 
 export { HandleClickLogin, HandleIdChange, LoginBProps };

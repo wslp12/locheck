@@ -56,6 +56,7 @@ function TodoList(props: { character: Character }) {
   const { mutate: updateTodoList } = useUpdateTodoList();
 
   const handleClickCheckTodo = (todo: Todo) => {
+    console.log('userInfo', userInfo);
     if (userInfo !== null) {
       updateTodoList(
         {
