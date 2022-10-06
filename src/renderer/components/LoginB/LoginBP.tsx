@@ -10,7 +10,7 @@ function LoginBP(props: LoginBProps) {
         className="h-full flex flex-col items-center justify-center gap-3"
         style={{
           backgroundColor: '#fff',
-          height: '15%',
+          height: '25%',
           width: '20%',
           padding: '2%',
           borderRadius: '0.5rem',
@@ -22,6 +22,14 @@ function LoginBP(props: LoginBProps) {
           onChange={onChangeId}
           id="standard-basic"
           label="캐릭터명을 입력 해주세요"
+          variant="standard"
+          className="w-full"
+        />
+        <TextField
+          value={idValue}
+          onChange={onChangeId}
+          id="standard-basic"
+          label="토큰을 입력해주세요 (옵션)"
           variant="standard"
           className="w-full"
         />
