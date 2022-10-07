@@ -76,16 +76,16 @@ export default function DashboardContent() {
   const { data, refetch } = useGetUserInfo(userInfo?.name ?? '');
   const [todoList, setTodoList] = useRecoilState(todoState);
 
-  const [characterLsitState, setCharacterLsitState] = useRecoilState(
+  const [characterListState, setCharacterListState] = useRecoilState(
     characterLsitAtomState,
   );
 
   const { data: raidList } = useGetRaidList(true);
 
-  const charList =
-    characterLsitState.length > 0
-      ? characterLsitState
-      : userInfo?.characterList;
+  const charList: Character[] =
+    characterListState.length > 0
+      ? characterListState
+      : data?.characterList ?? [];
 
   const getDisplay = (character: Character, raid: Raid) => {
     if (raid.name === '비아키스[노말]' && character.itemLevel >= 1460) {
@@ -123,8 +123,8 @@ export default function DashboardContent() {
   };
 
   React.useEffect(() => {
-    if (!raidList || !characterLsitState) return;
-    characterLsitState.forEach((character) => {
+    if (!raidList || !characterListState) return;
+    characterListState.forEach((character) => {
       raidList.forEach((raid) => {
         setTodoList((psTodo) =>
           produce(psTodo, (dsTodo) => {
@@ -147,7 +147,7 @@ export default function DashboardContent() {
         );
       });
     });
-  }, [raidList, characterLsitState]);
+  }, [raidList, characterListState]);
 
   React.useEffect(() => {
     if (userInfo?.name !== '') {
@@ -161,14 +161,14 @@ export default function DashboardContent() {
     }
 
     const items: Character[] = reorder(
-      characterLsitState,
+      characterListState,
       result.source.index,
       result.destination.index,
     );
 
     console.log('items', items);
 
-    setCharacterLsitState(
+    setCharacterListState(
       items.map((item, index) => ({ ...item, order: index })),
     );
     // setState(items);
@@ -183,6 +183,7 @@ export default function DashboardContent() {
               {charList
                 ?.slice()
                 .sort((a, b) => a.order - b.order)
+                .filter((item) => item.display)
                 .map((character, index) => (
                   <Draggable
                     key={character.name}

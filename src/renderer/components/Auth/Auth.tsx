@@ -30,11 +30,11 @@ function Auth(props: any) {
   const characterLsitState = useRecoilValue(characterLsitAtomState);
   const userState = useRecoilValue(userAtomState);
 
-  useEffect(() => {
-    if (characterLsitState.length > 0 || userState !== null) {
-      navigate('/dashboard');
-    }
-  }, [characterLsitState]);
+  // useEffect(() => {
+  //   if (characterLsitState.length > 0 || userState !== null) {
+  //     navigate('/dashboard');
+  //   }
+  // }, [characterLsitState]);
 
   // return <MainLayout />;
   return (

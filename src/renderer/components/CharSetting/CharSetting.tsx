@@ -7,6 +7,7 @@ import React from 'react';
 import { Switch } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
+import { useQueryClient } from '@tanstack/react-query';
 import characterLsitAtomState, {
   Character,
 } from '../../recoil/character-list.state';
@@ -14,16 +15,32 @@ import { Todo, todoState } from '../../recoil/todo';
 import { userAtomState } from '../../recoil/user.state';
 import useUpdateCharacter from '../../api/update-character.api';
 import useUpdateTodo from '../../api/update-todo.api';
+import { QUERY_KEY } from '../../enum';
+import useGetUserInfo, { useGetUserInfoEnable } from '../../api/get-user';
 
 function CharSetting() {
-  const [charInfo, setCharInfo] = useRecoilState(characterLsitAtomState);
+  const queryClient = useQueryClient();
+
+  const [characterListState, setCharacterListState] = useRecoilState(
+    characterLsitAtomState,
+  );
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
 
   const { mutate: characterUpdate } = useUpdateCharacter();
 
+  const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
+
+  console.log('%cuserInfo', 'color: blue', userInfo);
+  console.log('%ccharacterListState', 'color: orange', characterListState);
+  console.log('%cdata', 'color: gold', data);
+  const charList: Character[] =
+    characterListState.length > 0
+      ? characterListState
+      : data?.characterList ?? [];
+
   const handleDisplayClick = (char: Character) => {
     if (userInfo === null) {
-      setCharInfo((ps) =>
+      setCharacterListState((ps) =>
         produce(ps, (ds) => {
           const fidx = ds.findIndex((item) => item.name === char.name);
           if (fidx !== -1) {
@@ -36,23 +53,18 @@ function CharSetting() {
         { name: char.name, display: !char.display },
         {
           onSuccess: (res: Character) => {
-            setCharInfo((ps) =>
-              produce(ps, (ds) => {
-                const fidx = ds.findIndex((item) => item.name === res.name);
-                if (fidx !== -1) {
-                  ds[fidx].display = res.display;
-                }
-              }),
-            );
+            queryClient.invalidateQueries([QUERY_KEY.USER_INFO]);
           },
         },
       );
     }
   };
 
+  console.log('%ccharList', 'color: red', charList);
+
   return (
     <div style={{ display: 'flex' }}>
-      {charInfo
+      {charList
         ?.slice()
         .sort((a, b) => {
           return b.itemLevel - a.itemLevel;

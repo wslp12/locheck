@@ -23,4 +23,8 @@ const useGetUserInfo = (id: Id) => {
   });
 };
 
+export const useGetUserInfoEnable = (id: Id) => {
+  return useQuery([QUERY_KEY.USER_INFO], () => getUserInfo(id));
+};
+
 export default useGetUserInfo;

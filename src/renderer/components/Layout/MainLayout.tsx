@@ -119,9 +119,9 @@ export default function MainLayout() {
               >
                 메인
               </Typography>
-              <IconButton color="inherit" onClick={showModal}>
+              {/* <IconButton color="inherit" onClick={showModal}>
                 <LoginIcon />
-              </IconButton>
+              </IconButton> */}
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open}>
