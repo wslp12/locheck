@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -5,12 +6,15 @@
 /* eslint-disable consistent-return */
 /* eslint-disable function-paren-newline */
 /* eslint-disable no-param-reassign */
-import React from 'react';
+import React, { useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { produce } from 'immer';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+
 import { toast } from 'react-toastify';
 
 import { Todo, TodoState, todoState } from '../../recoil/todo';
@@ -121,6 +125,8 @@ function TodoList(props: { character: Character }) {
     }
   };
 
+  const info = useRef();
+
   // .filter((todo) => {
   //     return character.itemLevel >= todo.level;
   //   })
@@ -128,7 +134,20 @@ function TodoList(props: { character: Character }) {
   // .sort((a, b) => {
   //   return Number(a.done) - Number(b.done);
   // })
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
+  const handlePopoverOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    todo: any,
+  ) => {
+    setAnchorEl(event.currentTarget);
+    info.current = todo;
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
   return (
     <>
       {(userInfo !== null ? userInfo?.todoList : todoList)
@@ -179,10 +198,39 @@ function TodoList(props: { character: Character }) {
                   // backgroundColor: '#d50000',
                   // border: '1px solid red',
                 }}
+                aria-owns={open ? 'mouse-over-popover' : undefined}
+                aria-haspopup="true"
+                onMouseEnter={(e) => handlePopoverOpen(e, todo)}
+                onMouseLeave={handlePopoverClose}
               />
             </div>
           );
         })}
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>
+          <div>{(info?.current as any)?.raid.name}</div>
+          {(info?.current as any)?.raid.gold > 0 && (
+            <p>{(info?.current as any)?.raid.gold}</p>
+          )}
+        </Typography>
+      </Popover>
     </>
   );
 }
