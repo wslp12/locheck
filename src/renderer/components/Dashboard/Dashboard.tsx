@@ -39,6 +39,8 @@ import {
   NotDraggingStyle,
 } from 'react-beautiful-dnd';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import ProfileImg from '../ProfileImg';
 
 import TodoList from '../TodoList/TodoList';
@@ -50,7 +52,9 @@ import characterLsitAtomState, {
 } from '../../recoil/character-list.state';
 import useGetRaidList from '../../api/get-raid-list.api';
 import { userAtomState } from '../../recoil/user.state';
-import useGetUserInfo from '../../api/get-user';
+import useGetUserInfo, { useGetUserInfoEnable } from '../../api/get-user';
+import useUpdateCharacterList from '../../api/update-character-list.api';
+import { QUERY_KEY } from '../../enum';
 
 dayjs.extend(isYesterday);
 dayjs.extend(isSameOrAfter);
@@ -65,6 +69,7 @@ const reorder = (
   endIndex: number,
 ): Character[] => {
   const result = Array.from(list);
+  console.log(result);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
 
@@ -72,8 +77,10 @@ const reorder = (
 };
 
 export default function DashboardContent() {
+  const queryClient = useQueryClient();
+
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
-  const { data, refetch } = useGetUserInfo(userInfo?.name ?? '');
+  const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
   const [todoList, setTodoList] = useRecoilState(todoState);
 
   const [characterListState, setCharacterListState] = useRecoilState(
@@ -81,11 +88,13 @@ export default function DashboardContent() {
   );
 
   const { data: raidList } = useGetRaidList(true);
+  const { mutateAsync } = useUpdateCharacterList();
 
-  const charList: Character[] =
-    characterListState.length > 0
-      ? characterListState
-      : data?.characterList ?? [];
+  const charList: Character[] = ((characterListState.length > 0
+    ? characterListState
+    : data?.characterList ?? []) as Character[])?.filter(
+    (item) => item.display,
+  );
 
   const getDisplay = (character: Character, raid: Raid) => {
     if (raid.name === '비아키스[노말]' && character.itemLevel >= 1460) {
@@ -154,24 +163,39 @@ export default function DashboardContent() {
       refetch();
     }
   }, [userInfo?.name]);
-  const onDragEnd = (result: DropResult): void => {
+  const onDragEnd = async (result: DropResult) => {
+    console.log('result', result);
     // dropped outside the list
     if (!result.destination) {
       return;
     }
 
     const items: Character[] = reorder(
-      characterListState,
+      charList,
       result.source.index,
       result.destination.index,
     );
 
-    console.log('items', items);
+    console.log('items', items, characterListState.length);
 
-    setCharacterListState(
-      items.map((item, index) => ({ ...item, order: index })),
-    );
-    // setState(items);
+    if (characterListState.length > 0) {
+      setCharacterListState(
+        items.map((item, index) => ({ ...item, order: index })),
+      );
+    } else {
+      queryClient.setQueryData([QUERY_KEY.USER_INFO], {
+        ...userInfo,
+        characterList: items.map((item, index) => ({ ...item, order: index })),
+      });
+      await mutateAsync({
+        name: data.name,
+        characterList: items.map((item, index) => ({
+          ...item,
+          order: index,
+        })),
+      });
+    }
+    console.log(2);
   };
 
   return (
@@ -180,77 +204,73 @@ export default function DashboardContent() {
         {(provided, snapshot): JSX.Element => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             <Grid container spacing={2}>
-              {charList
-                ?.slice()
-                .sort((a, b) => a.order - b.order)
-                .filter((item) => item.display)
-                .map((character, index) => (
-                  <Draggable
-                    key={character.name}
-                    draggableId={character.name}
-                    index={index}
-                  >
-                    {(provided, snapshot): JSX.Element => (
-                      <Grid
-                        item
-                        xs={12}
-                        key={character.name}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+              {charList.map((character, index) => (
+                <Draggable
+                  key={character.name}
+                  draggableId={character.name}
+                  index={index}
+                >
+                  {(provided, snapshot): JSX.Element => (
+                    <Grid
+                      item
+                      xs={12}
+                      key={character.name}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Paper
+                        sx={{
+                          p: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
                       >
-                        <Paper
-                          sx={{
-                            p: 1,
+                        <div
+                          key={character.name}
+                          style={{
                             display: 'flex',
-                            flexDirection: 'column',
+                            margin: '0px',
+                            padding: '0px',
+                            overflow: 'auto',
                           }}
                         >
                           <div
-                            key={character.name}
                             style={{
                               display: 'flex',
-                              margin: '0px',
-                              padding: '0px',
-                              overflow: 'auto',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '5px',
                             }}
                           >
+                            <ProfileImg
+                              src={character.jobProfileSrc}
+                              alt={character.name}
+                              // onClick={(e) => console.log(e)}
+                            />
                             <div
                               style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                padding: '5px',
+                                fontSize: '14px',
                               }}
                             >
-                              <ProfileImg
-                                src={character.jobProfileSrc}
-                                alt={character.name}
-                                // onClick={(e) => console.log(e)}
-                              />
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  flexDirection: 'column',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  fontSize: '14px',
-                                }}
-                              >
-                                <span>{character.name}</span>
-                                <span>{character.itemLevel}</span>
-                              </div>
-                            </div>
-                            <div style={{ display: 'flex' }}>
-                              <TodoList character={character} />
+                              <span>{character.name}</span>
+                              <span>{character.itemLevel}</span>
                             </div>
                           </div>
-                        </Paper>
-                      </Grid>
-                    )}
-                  </Draggable>
-                ))}
+                          <div style={{ display: 'flex' }}>
+                            <TodoList character={character} />
+                          </div>
+                        </div>
+                      </Paper>
+                    </Grid>
+                  )}
+                </Draggable>
+              ))}
               {provided.placeholder}
             </Grid>
           </div>

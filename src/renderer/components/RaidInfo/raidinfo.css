@@ -1,20 +1,12 @@
-.raid-info > th,
-td {
+.raid-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
   border: 1px solid black;
 }
 
-.raid-info > th {
-  border: 1px solid black;
-}
-
-.raid-info th {
-  border: 1px solid black;
-}
-
-#raid-info td {
-  border: 1px solid black;
-}
-
-#raid-info > tr {
-  border: 1px solid black;
+.raid-cell {
+  width: 2rem;
+  flex-grow: 1;
 }
