@@ -82,6 +82,7 @@
   },
   "scripts": {
     "start:local": "env-cmd -e local,renderer webpack serve",
+    "start:pord": "env-cmd -e prod,renderer webpack serve",
     "build:local:web": "env-cmd -e local,renderer npx webpack --config webpack.config.js",
     "build:prod:web": "env-cmd -e prod,renderer npx webpack --config webpack.config.js",
     "build:local:main": "env-cmd -e local,main npx webpack --config webpack.config.js --watch",

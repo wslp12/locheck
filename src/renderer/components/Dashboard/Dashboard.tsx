@@ -188,7 +188,7 @@ export default function DashboardContent() {
         characterList: items.map((item, index) => ({ ...item, order: index })),
       });
       await mutateAsync({
-        name: data.name,
+        name: data?.name ?? 'asd22222222222222',
         characterList: items.map((item, index) => ({
           ...item,
           order: index,

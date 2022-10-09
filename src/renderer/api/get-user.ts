@@ -1,10 +1,19 @@
 /* eslint-disable no-promise-executor-return */
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEY } from '../enum';
+import { Character } from '../recoil/character-list.state';
+import { Todo } from '../recoil/todo';
 
 type Id = string;
 
-const getUserInfo = async (id: Id) => {
+const getUserInfo = async (
+  id: Id,
+): Promise<{
+  name: string;
+  token: string;
+  todoList: Todo[];
+  characterList: Character[];
+}> => {
   const encodeId = encodeURI(id);
   const url =
     process.env.locheck.R_RUN_MODE === 'local'

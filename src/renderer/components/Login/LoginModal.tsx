@@ -33,7 +33,7 @@ function LoginModal() {
 
     refetch().then((res) => {
       hideSplashModal();
-      if (res.data?.statusCode === 404 || !res.data?.token) {
+      if ((res.data as any)?.statusCode === 404 || !res.data?.token) {
         toast.error('서버비용이 없어서 죽어 있습니다.');
         return;
       }

@@ -23,6 +23,7 @@ import { userAtomState } from '../../recoil/user.state';
 import { Character } from '../../recoil/character-list.state';
 import useUpdateTodo from '../../api/update-todo.api';
 import useUpdateTodoList from '../../api/update-todo-list.api';
+import { useGetUserInfoEnable } from '../../api/get-user';
 
 const GetGold = (props: { todo: Todo; user: any }) => {
   const { user, todo } = props;
@@ -56,6 +57,7 @@ function TodoList(props: { character: Character }) {
 
   const [todoList, setTodoList] = useRecoilState(todoState);
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
+  const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
 
   const { mutate: updateTodoList } = useUpdateTodoList();
 
@@ -148,9 +150,11 @@ function TodoList(props: { character: Character }) {
     setAnchorEl(null);
   };
   const open = Boolean(anchorEl);
+
+  console.log(userInfo);
   return (
     <>
-      {(userInfo !== null ? userInfo?.todoList : todoList)
+      {(data !== null ? data?.todoList : todoList)
         ?.filter((item) => item.characterName === character.name)
         .filter((todo) => {
           return todo.display;
