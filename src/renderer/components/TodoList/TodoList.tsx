@@ -24,6 +24,8 @@ import { Character } from '../../recoil/character-list.state';
 import useUpdateTodo from '../../api/update-todo.api';
 import useUpdateTodoList from '../../api/update-todo-list.api';
 import { useGetUserInfoEnable } from '../../api/get-user';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEY } from '../../enum';
 
 const GetGold = (props: { todo: Todo; user: any }) => {
   const { user, todo } = props;
@@ -55,6 +57,7 @@ const GetGold = (props: { todo: Todo; user: any }) => {
 function TodoList(props: { character: Character }) {
   const { character } = props;
 
+  const queryClient = useQueryClient();
   const [todoList, setTodoList] = useRecoilState(todoState);
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
   const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
@@ -63,7 +66,7 @@ function TodoList(props: { character: Character }) {
 
   const handleClickCheckTodo = (todo: Todo) => {
     console.log('userInfo', userInfo);
-    if (userInfo !== null) {
+    if (data !== null) {
       updateTodoList(
         {
           id: {
@@ -78,6 +81,7 @@ function TodoList(props: { character: Character }) {
         {
           onSuccess: async (res) => {
             const result: TodoState[] = await res.json();
+            queryClient.invalidateQueries([QUERY_KEY.USER_INFO]);
             result.forEach((resultItem) => {
               setUserInfo((ps) =>
                 produce(ps, (ds) => {
@@ -151,7 +155,7 @@ function TodoList(props: { character: Character }) {
   };
   const open = Boolean(anchorEl);
 
-  console.log(userInfo);
+  console.log(data);
   return (
     <>
       {(data !== null ? data?.todoList : todoList)
