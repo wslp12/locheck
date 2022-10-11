@@ -41,6 +41,8 @@ import {
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import RefreshIcon from '@mui/icons-material/Refresh';
+
 import ProfileImg from '../ProfileImg';
 
 import TodoList from '../TodoList/TodoList';
@@ -218,55 +220,77 @@ export default function DashboardContent() {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                      id="test123"
                     >
-                      <Paper
-                        sx={{
-                          p: 1,
-                          display: 'flex',
-                          flexDirection: 'column',
+                      <div
+                        style={{
+                          position: 'relative',
                         }}
                       >
-                        <div
-                          key={character.name}
-                          style={{
+                        <Paper
+                          sx={{
+                            p: 1,
                             display: 'flex',
-                            margin: '0px',
-                            padding: '0px',
-                            overflow: 'auto',
+                            flexDirection: 'column',
                           }}
                         >
                           <div
+                            key={character.name}
                             style={{
                               display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              padding: '5px',
+                              margin: '0px',
+                              padding: '0px',
+                              overflow: 'auto',
                             }}
                           >
-                            <ProfileImg
-                              src={character.jobProfileSrc}
-                              alt={character.name}
-                              // onClick={(e) => console.log(e)}
-                            />
                             <div
                               style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                fontSize: '14px',
+                                padding: '5px',
                               }}
                             >
-                              <span>{character.name}</span>
-                              <span>{character.itemLevel}</span>
+                              <ProfileImg
+                                src={character.profileSrc}
+                                alt={character.name}
+                                // onClick={(e) => console.log(e)}
+                              />
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  fontSize: '14px',
+                                }}
+                              >
+                                <span>{character.name}</span>
+                                <span>{character.itemLevel}</span>
+                              </div>
+                            </div>
+                            <div style={{ display: 'flex' }}>
+                              <TodoList character={character} />
                             </div>
                           </div>
-                          <div style={{ display: 'flex' }}>
-                            <TodoList character={character} />
-                          </div>
-                        </div>
-                      </Paper>
+                        </Paper>
+                        <button
+                          type="button"
+                          style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '35px',
+                            height: '35px',
+                            zIndex: '3',
+                            backgroundColor: 'aliceblue',
+                            borderRadius: '25px',
+                          }}
+                        >
+                          <RefreshIcon />
+                        </button>
+                      </div>
                     </Grid>
                   )}
                 </Draggable>

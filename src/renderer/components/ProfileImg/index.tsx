@@ -18,6 +18,7 @@ function ProfileImg(props: {
         width: '90px',
         height: '90px',
         maxWidth: '100px',
+        borderRadius: '55px',
       }}
     />
   );
