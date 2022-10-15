@@ -17,6 +17,8 @@ import Typography from '@mui/material/Typography';
 
 import { toast } from 'react-toastify';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Todo, TodoState, todoState } from '../../recoil/todo';
 import donePng from '../../assets/done.png';
 import { userAtomState } from '../../recoil/user.state';
@@ -24,7 +26,7 @@ import { Character } from '../../recoil/character-list.state';
 import useUpdateTodo from '../../api/update-todo.api';
 import useUpdateTodoList from '../../api/update-todo-list.api';
 import { useGetUserInfoEnable } from '../../api/get-user';
-import { useQueryClient } from '@tanstack/react-query';
+
 import { QUERY_KEY } from '../../enum';
 
 const GetGold = (props: { todo: Todo; user: any }) => {
@@ -155,7 +157,6 @@ function TodoList(props: { character: Character }) {
   };
   const open = Boolean(anchorEl);
 
-  console.log(data);
   return (
     <>
       {(data !== null ? data?.todoList : todoList)
@@ -232,7 +233,7 @@ function TodoList(props: { character: Character }) {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>
+        <Typography sx={{ p: 1 }} variant="body2" component="div">
           <div>{(info?.current as any)?.raid.name}</div>
           {(info?.current as any)?.raid.gold > 0 && (
             <p>{(info?.current as any)?.raid.gold}</p>

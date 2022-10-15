@@ -57,6 +57,8 @@ import { userAtomState } from '../../recoil/user.state';
 import useGetUserInfo, { useGetUserInfoEnable } from '../../api/get-user';
 import useUpdateCharacterList from '../../api/update-character-list.api';
 import { QUERY_KEY } from '../../enum';
+import useUpdateCharacter from '../../api/update-character.api';
+import useUpdateCharacterParse from '../../api/update-character-parse.api';
 
 dayjs.extend(isYesterday);
 dayjs.extend(isSameOrAfter);
@@ -84,6 +86,7 @@ export default function DashboardContent() {
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
   const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
   const [todoList, setTodoList] = useRecoilState(todoState);
+  const { mutate: updateCharacterParse } = useUpdateCharacterParse();
 
   const [characterListState, setCharacterListState] = useRecoilState(
     characterLsitAtomState,
@@ -131,6 +134,11 @@ export default function DashboardContent() {
       return false;
     }
     return true;
+  };
+
+  const handleClickRefreshButton = (character: Character) => {
+    console.log(character);
+    updateCharacterParse(character.name);
   };
 
   React.useEffect(() => {
@@ -287,6 +295,7 @@ export default function DashboardContent() {
                             backgroundColor: 'aliceblue',
                             borderRadius: '25px',
                           }}
+                          onClick={() => handleClickRefreshButton(character)}
                         >
                           <RefreshIcon />
                         </button>

@@ -4,31 +4,25 @@
 import { useMutation } from '@tanstack/react-query';
 import { Character } from '../recoil/character-list.state';
 
-async function updateCharacter(
-  name: string,
-  display?: boolean,
-): Promise<Character> {
+async function updateCharacterParse(name: string): Promise<Character> {
   const encodeId = encodeURI(name);
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
-      ? `http://localhost:3000/character/${encodeId}`
-      : `http://www.lochek.site:3000/character/${encodeId}`;
+      ? `http://localhost:3000/parse/${encodeId}`
+      : `http://www.lochek.site:3000/parse/${encodeId}`;
 
   return fetch(url, {
     method: 'PATCH',
     headers: {
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ display }),
   }).then((res) => {
     return res.json();
   });
 }
 
-const useUpdateCharacter = () => {
-  return useMutation(({ name, display }: { name: string; display?: boolean }) =>
-    updateCharacter(name, display),
-  );
+const useUpdateCharacterParse = () => {
+  return useMutation((name: string) => updateCharacterParse(name));
 };
 
-export default useUpdateCharacter;
+export default useUpdateCharacterParse;
