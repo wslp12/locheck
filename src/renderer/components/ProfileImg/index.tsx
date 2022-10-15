@@ -7,19 +7,23 @@ function ProfileImg(props: {
   src: string;
   alt: string;
   onClick?: (event: React.MouseEvent<HTMLImageElement>) => void;
+  onMouseEnter?: (event: React.MouseEvent<HTMLImageElement>) => void;
+  onMouseLeave?: (event: React.MouseEvent<HTMLImageElement>) => void;
 }) {
-  const { src, alt, onClick } = props;
+  const { src, alt, onClick, onMouseEnter, onMouseLeave } = props;
   return (
     <img
       onClick={onClick}
       src={src}
       alt={alt}
       style={{
-        width: '90px',
-        height: '90px',
+        width: '80px',
+        height: '80px',
         maxWidth: '100px',
         borderRadius: '55px',
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     />
   );
 }

@@ -145,6 +145,6 @@ export const mainListItems = (
     <DashboardLnbItem />
     <CharacterSettingItem />
     <RaidInfo />
-    <PrivateIcon />
+    {/* <PrivateIcon /> */}
   </React.Fragment>
 );

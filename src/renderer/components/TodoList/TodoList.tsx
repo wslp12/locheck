@@ -172,7 +172,7 @@ function TodoList(props: { character: Character }) {
             <div
               key={todo.raid.name}
               style={{
-                width: '100px',
+                width: '90px',
                 height: '100%',
 
                 display: 'flex',
@@ -199,8 +199,8 @@ function TodoList(props: { character: Character }) {
                 src={`http://www.lochek.site/${todo.raid.srcName}`}
                 alt={todo.raid.name}
                 style={{
-                  width: '90px',
-                  height: '90px',
+                  width: '80px',
+                  height: '80px',
                   opacity: `${todo.done ? '0.35' : '1'}`,
                   borderRadius: '45px',
                   // padding: '1px',
@@ -235,9 +235,11 @@ function TodoList(props: { character: Character }) {
       >
         <Typography sx={{ p: 1 }} variant="body2" component="div">
           <div>{(info?.current as any)?.raid.name}</div>
-          {(info?.current as any)?.raid.gold > 0 && (
-            <p>{(info?.current as any)?.raid.gold}</p>
-          )}
+          <div>
+            {(info?.current as any)?.raid.gold > 0 && (
+              <p>{(info?.current as any)?.raid.gold}</p>
+            )}
+          </div>
         </Typography>
       </Popover>
     </>

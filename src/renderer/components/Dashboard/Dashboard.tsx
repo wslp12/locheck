@@ -20,6 +20,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -42,6 +44,8 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 
 import RefreshIcon from '@mui/icons-material/Refresh';
+
+import { toast } from 'react-toastify';
 
 import ProfileImg from '../ProfileImg';
 
@@ -82,6 +86,20 @@ const reorder = (
 
 export default function DashboardContent() {
   const queryClient = useQueryClient();
+
+  const info = React.useRef();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const handlePopoverOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    character: any,
+  ) => {
+    setAnchorEl(event.currentTarget);
+    info.current = character;
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
 
   const [userInfo, setUserInfo] = useRecoilState(userAtomState);
   const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
@@ -138,7 +156,13 @@ export default function DashboardContent() {
 
   const handleClickRefreshButton = (character: Character) => {
     console.log(character);
-    updateCharacterParse(character.name);
+    updateCharacterParse(character.name, {
+      onSuccess: (data) => {
+        if (!(data as any)?.statusCode) {
+          toast.success(`${data.name} 정보 갱신하였습니다`);
+        }
+      },
+    });
   };
 
   React.useEffect(() => {
@@ -209,106 +233,130 @@ export default function DashboardContent() {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot): JSX.Element => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
-            <Grid container spacing={2}>
-              {charList.map((character, index) => (
-                <Draggable
-                  key={character.name}
-                  draggableId={character.name}
-                  index={index}
-                >
-                  {(provided, snapshot): JSX.Element => (
-                    <Grid
-                      item
-                      xs={12}
-                      key={character.name}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      id="test123"
-                    >
-                      <div
-                        style={{
-                          position: 'relative',
-                        }}
+    <>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot): JSX.Element => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              <Grid container spacing={2}>
+                {charList.map((character, index) => (
+                  <Draggable
+                    key={character.name}
+                    draggableId={character.name}
+                    index={index}
+                  >
+                    {(provided, snapshot): JSX.Element => (
+                      <Grid
+                        item
+                        xs={12}
+                        key={character.name}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        id="test123"
                       >
-                        <Paper
-                          sx={{
-                            p: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
+                        <div
+                          style={{
+                            position: 'relative',
                           }}
                         >
-                          <div
-                            key={character.name}
-                            style={{
+                          <Paper
+                            sx={{
+                              p: 1,
                               display: 'flex',
-                              margin: '0px',
-                              padding: '0px',
-                              overflow: 'auto',
+                              flexDirection: 'column',
                             }}
                           >
                             <div
+                              key={character.name}
                               style={{
                                 display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '5px',
+                                margin: '0px',
+                                padding: '0px',
+                                overflow: 'auto',
                               }}
                             >
-                              <ProfileImg
-                                src={character.profileSrc}
-                                alt={character.name}
-                                // onClick={(e) => console.log(e)}
-                              />
                               <div
                                 style={{
                                   display: 'flex',
                                   flexDirection: 'column',
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  fontSize: '14px',
+                                  padding: '5px',
                                 }}
                               >
-                                <span>{character.name}</span>
-                                <span>{character.itemLevel}</span>
+                                <ProfileImg
+                                  src={character.profileSrc}
+                                  alt={character.name}
+                                  // onClick={(e) => console.log(e)}
+                                  onMouseEnter={(e) =>
+                                    handlePopoverOpen(e, character)
+                                  }
+                                  onMouseLeave={handlePopoverClose}
+                                />
+                              </div>
+                              <div style={{ display: 'flex' }}>
+                                <TodoList character={character} />
                               </div>
                             </div>
-                            <div style={{ display: 'flex' }}>
-                              <TodoList character={character} />
-                            </div>
-                          </div>
-                        </Paper>
-                        <button
-                          type="button"
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '35px',
-                            height: '35px',
-                            zIndex: '3',
-                            backgroundColor: 'aliceblue',
-                            borderRadius: '25px',
-                          }}
-                          onClick={() => handleClickRefreshButton(character)}
-                        >
-                          <RefreshIcon />
-                        </button>
-                      </div>
-                    </Grid>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </Grid>
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+                          </Paper>
+                          <button
+                            type="button"
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '35px',
+                              height: '35px',
+                              zIndex: '3',
+                              backgroundColor: 'aliceblue',
+                              borderRadius: '25px',
+                            }}
+                            onClick={() => handleClickRefreshButton(character)}
+                          >
+                            <RefreshIcon />
+                          </button>
+                        </div>
+                      </Grid>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </Grid>
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }} variant="body2" component="div">
+          <div>{(info?.current as any)?.name}</div>
+          <div>{(info?.current as any)?.itemLevel}</div>
+          <div>{(info?.current as any)?.level}</div>
+          <div>{(info?.current as any)?.job}</div>
+          {/* <div>
+            {(info?.current as any)?.raid.gold > 0 && (
+              <p>{(info?.current as any)?.raid.gold}</p>
+            )}
+          </div> */}
+        </Typography>
+      </Popover>
+    </>
   );
 }
