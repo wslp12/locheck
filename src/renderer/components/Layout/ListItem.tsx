@@ -20,6 +20,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import { Avatar } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -104,7 +105,11 @@ export const SecondaryListItems = () => {
             onClick={() => handleClickGuser(item.name)}
           >
             <ListItemIcon>
-              <AssignmentIcon />
+              <Avatar
+                alt={item.name}
+                src={`http://www.lochek.site/${item.profileSrc}`}
+                sx={{ width: 24, height: 24 }}
+              />
             </ListItemIcon>
             <ListItemText primary={item.name} />
           </ListItemButton>
