@@ -11,7 +11,7 @@ import useGetCharacterList from '../../api/get-character-list.api';
 import characterLsitAtomState from '../../recoil/character-list.state';
 import usePostCharacterList from '../../api/post-character-list.api';
 import { SplashContext } from '../Splash/SplashProvider';
-import useGetUserInfo from '../../api/get-user';
+import useGetUserInfo from '../../api/get-user.api';
 import { userAtomState } from '../../recoil/user.state';
 
 function LoginBC() {

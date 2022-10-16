@@ -25,7 +25,7 @@ import { userAtomState } from '../../recoil/user.state';
 import { Character } from '../../recoil/character-list.state';
 import useUpdateTodo from '../../api/update-todo.api';
 import useUpdateTodoList from '../../api/update-todo-list.api';
-import { useGetUserInfoEnable } from '../../api/get-user';
+import { useGetUserInfoEnable, UserInfo } from '../../api/get-user.api';
 
 import { QUERY_KEY } from '../../enum';
 
@@ -83,7 +83,6 @@ function TodoList(props: { character: Character }) {
         {
           onSuccess: async (res) => {
             const result: TodoState[] = await res.json();
-            queryClient.invalidateQueries([QUERY_KEY.USER_INFO]);
             result.forEach((resultItem) => {
               setUserInfo((ps) =>
                 produce(ps, (ds) => {
@@ -95,6 +94,19 @@ function TodoList(props: { character: Character }) {
                     ds.todoList[idx].done = resultItem.done;
                     ds.todoList[idx].doneTime = resultItem.doneTime;
                   }
+                }),
+              );
+              queryClient.setQueryData([QUERY_KEY.USER_INFO], (ps) =>
+                produce(ps, (ds: UserInfo) => {
+                  if (ds === undefined) return;
+                  result.forEach((item) => {
+                    ds.todoList.forEach((userInfoItem) => {
+                      if (userInfoItem.id === item.id) {
+                        userInfoItem.done = item.done;
+                        userInfoItem.doneTime = item.doneTime;
+                      }
+                    });
+                  });
                 }),
               );
             });

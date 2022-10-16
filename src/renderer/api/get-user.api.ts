@@ -6,14 +6,14 @@ import { Todo } from '../recoil/todo';
 
 type Id = string;
 
-const getUserInfo = async (
-  id: Id,
-): Promise<{
+export interface UserInfo {
   name: string;
   token: string;
   todoList: Todo[];
   characterList: Character[];
-}> => {
+}
+
+const getUserInfo = async (id: Id): Promise<UserInfo> => {
   const encodeId = encodeURI(id);
   const url =
     process.env.locheck.R_RUN_MODE === 'local'
@@ -33,7 +33,9 @@ const useGetUserInfo = (id: Id) => {
 };
 
 export const useGetUserInfoEnable = (id: Id) => {
-  return useQuery([QUERY_KEY.USER_INFO], () => getUserInfo(id));
+  return useQuery([QUERY_KEY.USER_INFO], () => getUserInfo(id), {
+    enabled: id !== '',
+  });
 };
 
 export default useGetUserInfo;

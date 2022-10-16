@@ -15,7 +15,6 @@ import Button from '@mui/material/Button';
 import { QUERY_KEY, RECOIL_KEY } from '../../enum';
 import { todoState } from '../../recoil/todo';
 import MainLayout from '../Layout/MainLayout';
-import useGetUserInfo from '../../api/get-user';
 import { userAtomState } from '../../recoil/user.state';
 import LoginP from '../Login/LoginP';
 import LoginBC from '../LoginB/LoginBC';

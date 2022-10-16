@@ -58,7 +58,7 @@ import characterLsitAtomState, {
 } from '../../recoil/character-list.state';
 import useGetRaidList from '../../api/get-raid-list.api';
 import { userAtomState } from '../../recoil/user.state';
-import useGetUserInfo, { useGetUserInfoEnable } from '../../api/get-user';
+import { useGetUserInfoEnable } from '../../api/get-user.api';
 import useUpdateCharacterList from '../../api/update-character-list.api';
 import { QUERY_KEY } from '../../enum';
 import useUpdateCharacter from '../../api/update-character.api';
@@ -101,8 +101,8 @@ export default function DashboardContent() {
   };
   const open = Boolean(anchorEl);
 
-  const [userInfo, setUserInfo] = useRecoilState(userAtomState);
-  const { data, refetch } = useGetUserInfoEnable(userInfo?.name ?? '');
+  const [userInfo] = useRecoilState(userAtomState);
+  const { data } = useGetUserInfoEnable(userInfo?.name ?? '');
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { mutate: updateCharacterParse } = useUpdateCharacterParse();
 
@@ -192,11 +192,6 @@ export default function DashboardContent() {
     });
   }, [raidList, characterListState]);
 
-  React.useEffect(() => {
-    if (userInfo?.name !== '') {
-      refetch();
-    }
-  }, [userInfo?.name]);
   const onDragEnd = async (result: DropResult) => {
     console.log('result', result);
     // dropped outside the list

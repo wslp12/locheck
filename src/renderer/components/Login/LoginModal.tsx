@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import LoginP from './LoginP';
 import { HandleClickLogin, HandleIdChange } from './login.type';
 import { userAtomState } from '../../recoil/user.state';
-import useGetUserInfo from '../../api/get-user';
+import useGetUserInfo from '../../api/get-user.api';
 import { LoginModalContext } from './LoginModalProvider';
 import { SplashContext } from '../Splash/SplashProvider';
 

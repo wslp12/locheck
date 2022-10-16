@@ -7,7 +7,6 @@ import { QueryClient, useQueryClient } from '@tanstack/react-query';
 
 import { HandleClickLogin, HandleIdChange } from './add-item-modal.type';
 import { userAtomState } from '../../recoil/user.state';
-import useGetUserInfo from '../../api/get-user';
 import { AddItemModalContext } from './AddItemModalProvider';
 import AddItemModalP from './AddItemModalP';
 import usePostOrganization from '../../api/post-organization.api';

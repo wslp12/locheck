@@ -16,7 +16,7 @@ import { userAtomState } from '../../recoil/user.state';
 import useUpdateCharacter from '../../api/update-character.api';
 import useUpdateTodo from '../../api/update-todo.api';
 import { QUERY_KEY } from '../../enum';
-import useGetUserInfo, { useGetUserInfoEnable } from '../../api/get-user';
+import { useGetUserInfoEnable } from '../../api/get-user.api';
 
 function CharSetting() {
   const queryClient = useQueryClient();
