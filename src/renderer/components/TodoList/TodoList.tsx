@@ -164,8 +164,6 @@ function TodoList(props: { character: Character }) {
     info.current = todo;
   };
 
-  console.log(1);
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
