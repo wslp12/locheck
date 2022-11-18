@@ -156,13 +156,13 @@ function TodoList(props: { character: Character }) {
   // })
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
-  // const handlePopoverOpen1 = (
-  //   event: React.MouseEvent<HTMLElement>,
-  //   todo: any,
-  // ) => {
-  //   setAnchorEl(event.currentTarget);
-  //   info.current = todo;
-  // };
+  const handlePopoverOpen1 = (
+    event: React.MouseEvent<HTMLElement>,
+    todo: any,
+  ) => {
+    setAnchorEl(event.currentTarget);
+    info.current = todo;
+  };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
