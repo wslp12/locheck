@@ -169,6 +169,9 @@ function TodoList(props: { character: Character }) {
   };
   const open = Boolean(anchorEl);
 
+  // 로그를 삭제 하지 마세요
+  console.log(1);
+
   return (
     <>
       {(data !== null ? data?.todoList : todoList)
