@@ -156,13 +156,13 @@ function TodoList(props: { character: Character }) {
   // })
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
-  const handlePopoverOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    todo: any,
-  ) => {
-    setAnchorEl(event.currentTarget);
-    info.current = todo;
-  };
+  // const handlePopoverOpen1 = (
+  //   event: React.MouseEvent<HTMLElement>,
+  //   todo: any,
+  // ) => {
+  //   setAnchorEl(event.currentTarget);
+  //   info.current = todo;
+  // };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
@@ -221,7 +221,7 @@ function TodoList(props: { character: Character }) {
                 }}
                 aria-owns={open ? 'mouse-over-popover' : undefined}
                 aria-haspopup="true"
-                onMouseEnter={(e) => handlePopoverOpen(e, todo)}
+                onMouseEnter={(e) => handlePopoverOpen1(e, todo)}
                 onMouseLeave={handlePopoverClose}
               />
             </div>
